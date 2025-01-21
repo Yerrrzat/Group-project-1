@@ -11,7 +11,6 @@ class DatabaseConnection {
         Connection connection = null;
 
         try {
-            // Establish connection
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println("Connection established successfully!");
 
