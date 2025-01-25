@@ -4,8 +4,9 @@ import data.interfaces.IDB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class PostgreDB implements IDB {
+public class PostgresDB implements IDB {
     private String host;
     private String username;
     private String password;
@@ -13,7 +14,7 @@ public class PostgreDB implements IDB {
 
     private Connection connection;
 
-    public PostgreDB(String host, String username, String password, String dbName) {
+    public PostgresDB(String host, String username, String password, String dbName) {
         setHost(host);
         setUsername(username);
         setPassword(password);
@@ -76,6 +77,14 @@ public class PostgreDB implements IDB {
 
     @Override
     public void close() {
+        if (connection != null) {
+            try{
+                connection.close();
+            }catch (SQLException e) {
+                System.out.println("Failed to close connection: "+e.getMessage());
+
+            }
+        }
 
     }
 
