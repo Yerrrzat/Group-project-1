@@ -11,7 +11,6 @@ public class MyApplication {
         this.controller = controller;
 
     }
-    
     public void start() {
         while (true) {
             mainMenu();
@@ -51,7 +50,6 @@ public class MyApplication {
         System.out.println(response);
 
     }
-
     private void getUserByIdMenu() {
         System.out.println("Enter user id");
         int id= scanner.nextInt();
@@ -59,13 +57,11 @@ public class MyApplication {
         System.out.println(response);
 
     }
-
     private void getAllUsersMenu() {
         String response = controller.getAllUsers();
         System.out.println(response);
 
     }
-
     private void mainMenu() {
         System.out.println();
         System.out.println("Welcome to My Application");
@@ -75,7 +71,5 @@ public class MyApplication {
         System.out.println("3. Create new user");
         System.out.println("0. Exit");
         System.out.print("Enter option (1-3): ");
-
-
     }
 }

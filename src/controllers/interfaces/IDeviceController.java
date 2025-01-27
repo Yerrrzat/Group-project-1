@@ -10,4 +10,5 @@ public interface IDeviceController {
 
    String getAllDevices();
 
+    String createDevice(Device device);
 }

@@ -16,7 +16,7 @@ public class DeviceController implements IDeviceController {
     public String createDevice(String name, String description, int category_id, String brand, double price, int stock_quantity, String release_date, String specifications) {
         Device device = new Device(name,description,category_id,brand,price,stock_quantity,release_date,specifications);
 
-        boolean created = deviceController.createDevice(device);
+        String created = deviceController.createDevice(device);
         return (created ? "Device created" : "Device creation failed");
 
     }
