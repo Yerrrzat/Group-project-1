@@ -7,7 +7,7 @@ import repositories.interfaces.IUserRepository;
 
 public class Main {
     public static void main(String[] args) {
-        IDB db = new PostgresDB("jdbc:postgresql://localhost:5432","postgres","Kundyz2007","postgres");
+        IDB db = new PostgresDB("jdbc:postgresql://localhost:5432","kundyz","Kundyz2007","postgres");
         IUserRepository repo=new UserRepository(db);
         IUserController controller=new UserController(repo);
         MyApplication app=new MyApplication(controller);

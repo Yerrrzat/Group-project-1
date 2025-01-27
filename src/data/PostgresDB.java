@@ -21,8 +21,6 @@ public class PostgresDB implements IDB {
         setDbName(dbName);
     }
 
-
-
     public String getDbName() {
         return dbName;
     }
