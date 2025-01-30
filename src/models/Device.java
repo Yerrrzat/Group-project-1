@@ -103,15 +103,15 @@ public class  Device{
 
     @Override
     public String toString() {
-        return "Device{" +
+        return "\n Device{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", category_id=" + category_id +
                 ", brand='" + brand + '\'' +
                 ", price=" + price +
-                ", stock_quantity=" + stock_quantity +
-                ", release_date='" + release_date + '\'' +
+                ",stock_quantity=" + stock_quantity +
+                ",release_date='" + release_date + '\'' +
                 ", specifications='" + specifications + '\'' +
                 '}';
     }

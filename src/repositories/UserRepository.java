@@ -78,7 +78,7 @@ public class UserRepository implements IUserRepository {
             String sql="SELECT * FROM users";
             Statement st=conn.createStatement();
             ResultSet rs= st.executeQuery(sql);
-            List<User> list = new ArrayList<>();
+            List<User> users = new ArrayList<>();
             while (rs.next()){
                 User user=new User(rs.getInt("id"),
                         rs.getString("name"),
