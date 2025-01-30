@@ -4,19 +4,16 @@ public class Brand {
     private int id;
     private String name;
     private String description;
-    private String country;
-    private String establishedDate;
+
 
     // Constructors
-    public Brand(String name, String description, String country, String establishedDate) {
+    public Brand(String name, String description) {
         this.name = name;
         this.description = description;
-        this.country = country;
-        this.establishedDate = establishedDate;
     }
 
-    public Brand(int id, String name, String description, String country, String establishedDate) {
-        this(name, description, country, establishedDate);
+    public Brand(int id, String name, String description) {
+        this(name, description);
         this.id = id;
     }
 
@@ -45,21 +42,6 @@ public class Brand {
         this.description = description;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getEstablishedDate() {
-        return establishedDate;
-    }
-
-    public void setEstablishedDate(String establishedDate) {
-        this.establishedDate = establishedDate;
-    }
 
 
     // toString method
@@ -69,8 +51,6 @@ public class Brand {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", country='" + country + '\'' +
-                ", establishedDate='" + establishedDate + '\'' +
                 '}';
     }
 }

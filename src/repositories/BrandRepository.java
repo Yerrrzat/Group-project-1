@@ -20,14 +20,11 @@ public class BrandRepository implements IBrandRepository {
         Connection conn = null;
         try {
             conn = db.getConnection();
-            String sql = "INSERT INTO brands(name, description, country, established_date) VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO brands(name, description) VALUES(?, ?)";
             PreparedStatement st = conn.prepareStatement(sql);
 
             st.setString(1, brand.getName());
             st.setString(2, brand.getDescription());
-            st.setString(3, brand.getCountry());
-            st.setString(4, brand.getEstablishedDate());
-
             st.execute();
             return true;
         } catch (SQLException e) {
@@ -50,9 +47,7 @@ public class BrandRepository implements IBrandRepository {
                 return new Brand(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getString("description"),
-                        rs.getString("country"),
-                        rs.getString("established_date")
+                        rs.getString("description")
                 );
             }
         } catch (SQLException e) {
@@ -74,9 +69,7 @@ public class BrandRepository implements IBrandRepository {
                 Brand brand = new Brand(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getString("description"),
-                        rs.getString("country"),
-                        rs.getString("established_date")
+                        rs.getString("description")
                 );
                 brands.add(brand);
             }

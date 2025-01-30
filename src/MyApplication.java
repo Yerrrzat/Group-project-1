@@ -1,3 +1,4 @@
+import controllers.interfaces.IBrandController;
 import controllers.interfaces.IDeviceController;
 import controllers.interfaces.IUserController;
 
@@ -9,7 +10,7 @@ public class MyApplication {
     private final IDeviceController deviceController;
     private final Scanner scanner = new Scanner(System.in);
 
-    public MyApplication(IUserController userController, IDeviceController deviceController) {
+    public MyApplication(IUserController userController, IDeviceController deviceController, IBrandController controllerBrand) {
         this.userController = userController;
         this.deviceController = deviceController;
 
@@ -61,7 +62,7 @@ public class MyApplication {
 
     }
     private void getUserByIdMenu() {
-        System.out.println("Enter user id (1-5): ");
+        System.out.println("Enter user id");
         int id= scanner.nextInt();
         String response = userController.getUserById(id);
         System.out.println(response);
@@ -96,9 +97,9 @@ public class MyApplication {
 
     }
     private void getDeviceByIdMenu() {
-        System.out.println("Enter device id (1-30): ");
+        System.out.println("Enter user id");
         int id= scanner.nextInt();
-        String response = deviceController.getDeviceById(id);
+        String response = userController.getUserById(id);
         System.out.println(response);
 
     }
@@ -110,7 +111,7 @@ public class MyApplication {
     private void mainMenu() {
         System.out.println();
         System.out.println("Welcome to My Application");
-        System.out.println("Select an option (1-6):");
+        System.out.println("Select an option (1-3):");
         System.out.println("1. Get all users");
         System.out.println("2. Get user by id");
         System.out.println("3. Create new user");
@@ -118,6 +119,6 @@ public class MyApplication {
         System.out.println("5. Get device by id");
         System.out.println("6. Create new device");
         System.out.println("0. Exit");
-        System.out.print("Enter option (1-6): ");
+        System.out.print("Enter option (1-3): ");
     }
 }
