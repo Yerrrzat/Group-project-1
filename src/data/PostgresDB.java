@@ -22,22 +22,27 @@ public class PostgresDB implements IDB {
     }
 
     public String getDbName() {
+
         return dbName;
     }
 
     public void setDbName(String dbName) {
+
         this.dbName = dbName;
     }
 
     public String getUsername() {
+
         return username;
     }
 
     public void setUsername(String username) {
+
         this.username = username;
     }
 
     public String getPassword() {
+
         return password;
     }
 
@@ -59,10 +64,10 @@ public class PostgresDB implements IDB {
     public Connection getConnection() {
         String connectionUrl = host + "/" + dbName;
         try {
-            if (connection == null && !connection.isClosed()) {
+            if (connection != null && !connection.isClosed()) {
                 return connection;
             }
-            Class.forName("org.postgresql.Driver");
+            Class.forName("org.postgresql.Driver"); //JDBC DRIVER EXISTENCE
             connection=DriverManager.getConnection(connectionUrl,username,password);
             return connection;
         }catch (Exception e) {
