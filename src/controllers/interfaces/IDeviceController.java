@@ -7,5 +7,5 @@ public interface IDeviceController {
     String getDeviceById(int id);
     String getAllDevices();
 
-    String createDevice(Device device);
+
 }
