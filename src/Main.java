@@ -18,7 +18,8 @@ public class Main {
         IDeviceRepository repoDevice=new DeviceRepository(db);
         IDeviceController controllerDevice=new DeviceController(repoDevice);
         
-        MyApplication app=new MyApplication(controller);
+        MyApplication app=new MyApplication(controller,controllerDevice);
+
         app.start();
         db.close();
 
