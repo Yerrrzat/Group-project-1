@@ -8,40 +8,57 @@ import java.util.Scanner;
 public class MyApplication {
     private final IUserController userController;
     private final IDeviceController deviceController;
+    private final IBrandController brandController;
     private final Scanner scanner = new Scanner(System.in);
 
-    public MyApplication(IUserController userController, IDeviceController deviceController, IBrandController controllerBrand) {
+    public MyApplication(IUserController userController, IDeviceController deviceController, IBrandController brandController) {
         this.userController = userController;
         this.deviceController = deviceController;
-
+        this.brandController = brandController;
     }
 
     public void start() {
         while (true) {
             mainMenu();
-            try{
+            try {
                 int option = scanner.nextInt();
                 switch (option) {
-                    case 1:getAllUsersMenu();break;
-                    case 2:getUserByIdMenu();break;
-                    case 3:createUserMenu();break;
-                    case 4:getAllDeviceMenu();break;
-                    case 5:getDeviceByIdMenu();break;
-                    case 6:createDeviceMenu();break;
-
+                    case 1: getAllUsersMenu(); break;
+                    case 2: getUserByIdMenu(); break;
+                    case 3: createUserMenu(); break;
+                    case 4: getAllDeviceMenu(); break;
+                    case 5: getDeviceByIdMenu(); break;
+                    case 6: createDeviceMenu(); break;
+                    case 7: getAllBrandsMenu(); break;
+                    case 8: createBrandMenu(); break;
                     default: return;
                 }
 
-            }catch(InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Input must be an integer");
 
-            }catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
+    // Get all brands
+    private void getAllBrandsMenu() {
+        String response = brandController.getAllBrands();
+        System.out.println(response);
+    }
 
+    // Create a new brand
+    private void createBrandMenu() {
+        System.out.println("Enter brand name: ");
+        String name = scanner.nextLine();
+        System.out.println("Enter brand description: ");
+        String description = scanner.nextLine();
+
+        String response = brandController.createBrand(name, description);
+        System.out.println(response);
+    }
 
     private void createUserMenu() {
         System.out.println("Enter user name: ");
@@ -59,20 +76,20 @@ public class MyApplication {
 
         String response = userController.createUser(name, surname, email, password, address, phone);
         System.out.println(response);
-
     }
+
     private void getUserByIdMenu() {
         System.out.println("Enter user id");
-        int id= scanner.nextInt();
+        int id = scanner.nextInt();
         String response = userController.getUserById(id);
         System.out.println(response);
-
     }
+
     private void getAllUsersMenu() {
         String response = userController.getAllUsers();
         System.out.println(response);
-
     }
+
     private void createDeviceMenu() {
         System.out.println("Enter device name: ");
         String name = scanner.nextLine();
@@ -89,25 +106,25 @@ public class MyApplication {
         System.out.println("Enter device release date: ");
         String release_date = scanner.nextLine();
         System.out.println("Enter device specification: ");
-        String specifications= scanner.nextLine();
+        String specifications = scanner.nextLine();
 
-        String response = deviceController.createDevice(name,description,category_id,brand,price,stock_quantity,release_date,specifications);
+        String response = deviceController.createDevice(name, description, category_id, brand, price, stock_quantity, release_date, specifications);
 
         System.out.println(response);
-
     }
+
     private void getDeviceByIdMenu() {
         System.out.println("Enter user id");
-        int id= scanner.nextInt();
+        int id = scanner.nextInt();
         String response = userController.getUserById(id);
         System.out.println(response);
-
     }
+
     private void getAllDeviceMenu() {
         String response = deviceController.getAllDevices();
         System.out.println(response);
-
     }
+
     private void mainMenu() {
         System.out.println();
         System.out.println("Welcome to My Application");
@@ -118,6 +135,8 @@ public class MyApplication {
         System.out.println("4. Get all devices");
         System.out.println("5. Get device by id");
         System.out.println("6. Create new device");
+        System.out.println("7. Get all brands");
+        System.out.println("8. Create new brand");
         System.out.println("0. Exit");
         System.out.print("Enter option (1-3): ");
     }
