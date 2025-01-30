@@ -95,4 +95,43 @@ public class UserRepository implements IUserRepository {
         }
         return null;
     }
+
+    public static class ReturnReviewController implements IReturnReviewController {
+        private final IReturnRepository returnRepository;
+        private final IReviewRepository reviewRepository;
+
+        public ReturnReviewController(IReturnRepository returnRepository, IReviewRepository reviewRepository) {
+            this.returnRepository = returnRepository;
+            this.reviewRepository = reviewRepository;
+        }
+
+        // Возвраты (Returns)
+        @Override
+        public boolean createReturn(int userId, int deviceId, String reason) {
+            Return returnRequest = new Return(userId, deviceId, reason, "Pending");
+            return returnRepository.createReturn(returnRequest);
+        }
+
+        @Override
+        public List<Return> getAllReturns() {
+            return returnRepository.getAllReturns();
+        }
+
+        @Override
+        public boolean updateReturnStatus(int returnId, String status) {
+            return returnRepository.updateReturnStatus(returnId, status);
+        }
+
+        // Отзывы (Reviews)
+        @Override
+        public boolean addReview(int userId, int deviceId, int rating, String comment) {
+            Review review = new Review(userId, deviceId, rating, comment);
+            return reviewRepository.addReview(review);
+        }
+
+        @Override
+        public List<Review> getReviewsByDevice(int deviceId) {
+            return reviewRepository.getReviewsByDevice(deviceId);
+        }
+    }
 }
