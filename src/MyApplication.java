@@ -61,7 +61,7 @@ public class MyApplication {
 
     }
     private void getUserByIdMenu() {
-        System.out.println("Enter user id");
+        System.out.println("Enter user id (1-5): ");
         int id= scanner.nextInt();
         String response = userController.getUserById(id);
         System.out.println(response);
@@ -96,9 +96,9 @@ public class MyApplication {
 
     }
     private void getDeviceByIdMenu() {
-        System.out.println("Enter user id");
+        System.out.println("Enter device id (1-30): ");
         int id= scanner.nextInt();
-        String response = userController.getUserById(id);
+        String response = deviceController.getDeviceById(id);
         System.out.println(response);
 
     }
@@ -110,7 +110,7 @@ public class MyApplication {
     private void mainMenu() {
         System.out.println();
         System.out.println("Welcome to My Application");
-        System.out.println("Select an option (1-3):");
+        System.out.println("Select an option (1-6):");
         System.out.println("1. Get all users");
         System.out.println("2. Get user by id");
         System.out.println("3. Create new user");
@@ -118,6 +118,6 @@ public class MyApplication {
         System.out.println("5. Get device by id");
         System.out.println("6. Create new device");
         System.out.println("0. Exit");
-        System.out.print("Enter option (1-3): ");
+        System.out.print("Enter option (1-6): ");
     }
 }
