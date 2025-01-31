@@ -19,7 +19,7 @@ the connection. In catch If connection is null it will sent error and message.
 
 2. models package
 Inside of this package i created my java class , it is called "User.java".
-And in pg admin for postgresSQL i created users table to work and take inputs from this table. To create table in pgadmin i wrote code
+And in pgadmin for postgresSQL i created users table to work and take inputs from this table. To create table in pgadmin i wrote code
 create table and insert into methods to create this user table.
 So after I created table : columns are: id, name,surname,email,password,address,phone.
 In user class first i wrote fields from the table : private int id, private String name, and so on.
@@ -30,8 +30,18 @@ Then I created two classes:
      -Repositories  work with database
      -Controllers work with models.
 3. Controllers package
-In package i created Interface for my tables like "IUserControllers".
+In package i created Interface for my tables like "IUserControllers" and java class "UserController". In controllers pacckage i created interfaces package and sent my interface
+user controller to this package. UserController implements to user controller interface. In IUserController i used three methods. CreateUser(),getUserById() and getAllUsers().
+Then in user controller java it implemented all those three methods.
 4. Repositories package
-In this package I created Interface for my tables like "IUserRepository".
+In this package I created Interface for my tables like "IUserRepository" and java class "UserRepository". In repositories pacckage i created interfaces package and sent my interface
+user repository to this package.  UserRepository implements to user repository interface.
+IUserRepository interface: i created methods- boolean createUser(),getUserById(), and getAllUsers trough List. In Java class repository i implemented all those methods.
+But in repository i wrote connection to the database.
+
+1.implement: This implement is in boolean type. At first i created connection to database with try-catch exception.In try part i wrote postgresSQL commands. For this i used prepared
+statement then i wrote "INSERT INTO..." commands after that wrote code to get data from table using set and get. In catch i wrote error .
+2.implement:
+3.implement:
 
 
