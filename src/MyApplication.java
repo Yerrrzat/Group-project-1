@@ -207,7 +207,7 @@ public class MyApplication {
     private void createOrderItemMenu() {
         System.out.println("Enter order id: ");
         int orderId = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter product id: ");
+        System.out.println("Enter device id: ");
         int deviceId = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter quantity: ");
         int quantity = Integer.parseInt(scanner.nextLine());

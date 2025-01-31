@@ -3,7 +3,7 @@ package controllers.interfaces;
 import java.math.BigDecimal;
 
 public interface IOrderItemController {
-    String createOrderItem(int orderId, int productId, int quantity, int price);
+    String createOrderItem(int orderId, int device_id, int quantity, int price);
 
     String getOrderItemById(int id);
 

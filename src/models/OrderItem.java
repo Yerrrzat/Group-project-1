@@ -40,7 +40,7 @@ public class OrderItem {
         return device_id;
     }
 
-    public void setDeviceId(int productId) {
+    public void setDeviceId(int device_id) {
         this.device_id = device_id;
     }
 
@@ -65,7 +65,7 @@ public class OrderItem {
         return "OrderItem{" +
                 "id=" + id +
                 ", orderId=" + order_id +
-                ", productId=" + device_id +
+                ", deviceId=" + device_id +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 '}';

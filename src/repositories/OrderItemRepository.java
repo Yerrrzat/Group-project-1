@@ -75,7 +75,7 @@ public class OrderItemRepository implements IOrderItemRepository {
                 OrderItem orderItem = new OrderItem(
                         rs.getInt("id"),
                         rs.getInt("order_id"),
-                        rs.getInt("product_id"),
+                        rs.getInt("device_id"),
                         rs.getInt("quantity"),
                         rs.getInt("price")
                 );
