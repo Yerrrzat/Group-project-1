@@ -20,7 +20,7 @@ public class OrderRepository implements IOrderRepository {
         Connection conn = null;
         try {
             conn = db.getConnection();
-            String sql = "INSERT INTO orders(user_id, status) VALUES(?, ?)";
+            String sql = "INSERT INTO orders(user_id, status,order date,) VALUES(?, ?)";
             PreparedStatement st = conn.prepareStatement(sql);
 
             st.setInt(1, order.getUserId());

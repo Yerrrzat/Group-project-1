@@ -4,20 +4,20 @@ import java.math.BigDecimal;
 
 public class OrderItem {
     private int id;
-    private int orderId;
-    private int productId;
+    private int order_id;
+    private int device_id;
     private int quantity;
     private int price;
 
-    public OrderItem(int orderId, int productId, int quantity, int price) {
-        this.orderId = orderId;
-        this.productId = productId;
+    public OrderItem(int orderId, int device_id, int quantity, int price) {
+        this.order_id = orderId;
+        this.device_id = device_id;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public OrderItem(int id, int orderId, int productId, int quantity, int price) {
-        this(orderId, productId, quantity, price);
+    public OrderItem(int id, int orderId, int device_id, int quantity, int price) {
+        this(orderId, device_id, quantity, price);
         this.id = id;
     }
 
@@ -31,19 +31,19 @@ public class OrderItem {
     }
 
     public int getOrderId() {
-        return orderId;
+        return order_id;
     }
 
     public void setOrderId(int orderId) {
-        this.orderId = orderId;
+        this.order_id = orderId;
     }
 
     public int getProductId() {
-        return productId;
+        return device_id;
     }
 
     public void setProductId(int productId) {
-        this.productId = productId;
+        this.device_id = device_id;
     }
 
     public int getQuantity() {
@@ -66,8 +66,8 @@ public class OrderItem {
     public String toString() {
         return "OrderItem{" +
                 "id=" + id +
-                ", orderId=" + orderId +
-                ", productId=" + productId +
+                ", orderId=" + order_id +
+                ", productId=" + device_id +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 '}';
