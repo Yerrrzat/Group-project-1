@@ -15,9 +15,8 @@ public class ReturnController implements IReturnController {
 
     @Override
     public String createReturn(int userId, int deviceId, String reason) {
-        Return returnRequest = new Return(userId, deviceId, reason, "pending");
-        boolean created = repo.createReturn(returnRequest);
-        return created ? "Return created successfully" : "Return creation failed";
+        Return returnRequest = new Return(userId, deviceId, reason);
+        return repo.createReturn(returnRequest) ? "Return created successfully" : "Error creating return";
     }
 
     @Override
@@ -29,10 +28,6 @@ public class ReturnController implements IReturnController {
     @Override
     public String getAllReturns() {
         List<Return> returns = repo.getAllReturns();
-        StringBuilder response = new StringBuilder();
-        for (Return returnRequest : returns) {
-            response.append(returnRequest.toString()).append("\n");
-        }
-        return response.toString();
+        return returns.toString();
     }
 }

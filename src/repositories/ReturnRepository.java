@@ -8,69 +8,54 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ReturnRepository<T extends models.Return> implements IReturnRepository {
+public class ReturnRepository implements IReturnRepository {
     private final IDB db;
 
     public ReturnRepository(IDB db) {
         this.db = db;
     }
 
-   public boolean createReturn(Return returnRequest) {
-        boolean result;
-        try (Connection con = db.getConnection()) {
-            String sql = "INSERT INTO Returns (user_id, device_id, reason, status) VALUES (?, ?, ?, 'pending')";
-            PreparedStatement st = con.prepareStatement(sql);
+    @Override
+    public boolean createReturn(Return returnRequest) {
+        try (Connection con = db.getConnection();
+             PreparedStatement st = con.prepareStatement("INSERT INTO Returns (user_id, device_id, reason, status) VALUES (?, ?, ?, ?)")) {
             st.setInt(1, returnRequest.getUserId());
             st.setInt(2, returnRequest.getDeviceId());
             st.setString(3, returnRequest.getReason());
-            result = st.executeUpdate() > 0;
+            st.setString(4, returnRequest.getStatus());
+            return st.executeUpdate() > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
-            result = false;
+            return false;
         }
-        return result;
     }
 
-    /**
-     * @param returnRequest
-     * @return
-     */
     @Override
-    public boolean createReturn(Object returnRequest) {
-        return false;
+    public Return getReturnById(int id) {
+        try (Connection con = db.getConnection();
+             PreparedStatement st = con.prepareStatement("SELECT * FROM Returns WHERE id = ?")) {
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return new Return(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("device_id"), rs.getString("reason"), rs.getString("status"));
+            }
+        } catch (SQLException e) {
+            return null;
+        }
+        return null;
     }
 
     @Override
     public List<Return> getAllReturns() {
-        List<T> returns = new ArrayList<>();
-        try (Connection con = db.getConnection()) {
-            String sql = "SELECT * FROM Returns";
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+        List<Return> returns = new ArrayList<>();
+        try (Connection con = db.getConnection();
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery("SELECT * FROM Returns")) {
             while (rs.next()) {
-                returns.add((T) new Return(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("device_id"),
-                        rs.getString("reason"), Return.valueOf(rs.getString("status").toUpperCase())));
+                returns.add(new Return(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("device_id"), rs.getString("reason"), rs.getString("status")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
-        return (List<Return>) returns;
-    }
-
-    @Override
-    public models.Return getReturnById(int id) {
-        try (Connection con = db.getConnection()) {
-            String sql = "SELECT * FROM Returns WHERE id = ?";
-            PreparedStatement st = con.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                return new Return(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("device_id"),
-                        rs.getString("reason"), Return.ReturnStatus.valueOf(rs.getString("status").toUpperCase()));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return returns;
     }
 }
