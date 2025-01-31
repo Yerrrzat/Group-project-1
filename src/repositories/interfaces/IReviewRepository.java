@@ -1,13 +1,18 @@
 package repositories.interfaces;
 
 
+import models.Review;
+
 import java.util.List;
+import java.util.Map;
 
 public interface IReviewRepository {
     boolean createReview(Review review);
 
     boolean createReview(Object review);
 
-    List<Review> getAllReviews();
+    boolean createReview(Map<String, Object> reviewData);
+
+    List<Map<String, Object>> getAllReviews();
     <Review> Review getReviewById(int id);
 }

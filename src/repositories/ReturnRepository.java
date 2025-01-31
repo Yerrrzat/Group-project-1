@@ -1,14 +1,14 @@
 package repositories;
 
 import data.interfaces.IDB;
-import entities.Return;
+import models.Return;
 import repositories.interfaces.IReturnRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReturnRepository implements IReturnRepository {
+public abstract class ReturnRepository<T extends models.Return> implements IReturnRepository {
     private final IDB db;
 
     public ReturnRepository(IDB db) {
@@ -16,39 +16,50 @@ public class ReturnRepository implements IReturnRepository {
     }
 
     @Override
-    public boolean createReturn(Return returnRequest) {
+    public boolean createReturn(@org.jetbrains.annotations.NotNull models.Return returnRequest) {
+        boolean result;
         try (Connection con = db.getConnection()) {
             String sql = "INSERT INTO Returns (user_id, device_id, reason, status) VALUES (?, ?, ?, 'pending')";
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, returnRequest.getUserId());
             st.setInt(2, returnRequest.getDeviceId());
             st.setString(3, returnRequest.getReason());
-            return st.executeUpdate() > 0;
+            result = st.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            result = false;
         }
+        return result;
+    }
+
+    /**
+     * @param returnRequest
+     * @return
+     */
+    @Override
+    public boolean createReturn(Object returnRequest) {
+        return false;
     }
 
     @Override
     public List<Return> getAllReturns() {
-        List<Return> returns = new ArrayList<>();
+        List<T> returns = new ArrayList<>();
         try (Connection con = db.getConnection()) {
             String sql = "SELECT * FROM Returns";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                returns.add(new Return(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("device_id"),
-                        rs.getString("reason"), rs.getString("status")));
+                returns.add((T) new Return(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("device_id"),
+                        rs.getString("reason"), Return.valueOf(rs.getString("status").toUpperCase())));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return returns;
+        return (List<Return>) returns;
     }
 
     @Override
-    public Return getReturnById(int id) {
+    public models.Return getReturnById(int id) {
         try (Connection con = db.getConnection()) {
             String sql = "SELECT * FROM Returns WHERE id = ?";
             PreparedStatement st = con.prepareStatement(sql);
@@ -56,7 +67,7 @@ public class ReturnRepository implements IReturnRepository {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 return new Return(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("device_id"),
-                        rs.getString("reason"), rs.getString("status"));
+                        rs.getString("reason"), Return.ReturnStatus.valueOf(rs.getString("status").toUpperCase()));
             }
         } catch (SQLException e) {
             e.printStackTrace();

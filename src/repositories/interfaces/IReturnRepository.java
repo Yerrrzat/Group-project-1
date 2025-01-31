@@ -1,11 +1,18 @@
 package repositories.interfaces;
 
-import entities.Return;
+import models.Return;
 
 import java.util.List;
 
 public interface IReturnRepository {
-    boolean createReturn(Return returnRequest);
-    List<Return> getAllReturns();
-    Return getReturnById(int id);
+    default boolean createReturn(Return returnRequest) // kept the original method
+    {
+        return false;
+    }
+
+
+    boolean createReturn(Object returnRequest);
+
+    List<models.Return> getAllReturns();
+    models.Return getReturnById(int id);
 }
