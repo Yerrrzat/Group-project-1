@@ -15,7 +15,7 @@ public class OrderItemController implements IOrderItemController {
     }
 
     @Override
-    public String createOrderItem(int orderId, int productId, int quantity, BigDecimal price) {
+    public String createOrderItem(int orderId, int productId, int quantity, int price) {
         OrderItem orderItem = new OrderItem(orderId, productId, quantity, price);
         boolean created = orderItemRepository.createOrderItem(orderItem);
         return created ? "Order Item created successfully" : "Order Item creation failed";

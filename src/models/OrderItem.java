@@ -7,16 +7,16 @@ public class OrderItem {
     private int orderId;
     private int productId;
     private int quantity;
-    private BigDecimal price;
+    private int price;
 
-    public OrderItem(int orderId, int productId, int quantity, BigDecimal price) {
+    public OrderItem(int orderId, int productId, int quantity, int price) {
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public OrderItem(int id, int orderId, int productId, int quantity, BigDecimal price) {
+    public OrderItem(int id, int orderId, int productId, int quantity, int price) {
         this(orderId, productId, quantity, price);
         this.id = id;
     }
@@ -54,11 +54,11 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

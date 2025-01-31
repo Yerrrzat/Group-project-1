@@ -26,7 +26,7 @@ public class OrderItemRepository implements IOrderItemRepository {
             st.setInt(1, orderItem.getOrderId());
             st.setInt(2, orderItem.getProductId());
             st.setInt(3, orderItem.getQuantity());
-            st.setBigDecimal(4, orderItem.getPrice());
+            st.setInt(4, orderItem.getPrice());
             st.execute();
             return true;
         } catch (SQLException e) {
@@ -51,7 +51,7 @@ public class OrderItemRepository implements IOrderItemRepository {
                         rs.getInt("order_id"),
                         rs.getInt("product_id"),
                         rs.getInt("quantity"),
-                        rs.getBigDecimal("price")
+                        rs.getInt("price")
                 );
             }
         } catch (SQLException e) {
@@ -77,7 +77,7 @@ public class OrderItemRepository implements IOrderItemRepository {
                         rs.getInt("order_id"),
                         rs.getInt("product_id"),
                         rs.getInt("quantity"),
-                        rs.getBigDecimal("price")
+                        rs.getInt("price")
                 );
                 orderItems.add(orderItem);
             }

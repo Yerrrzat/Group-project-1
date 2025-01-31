@@ -1,17 +1,9 @@
-import controllers.BrandController;
-import controllers.DeviceController;
-import controllers.UserController;
-import controllers.interfaces.IBrandController;
-import controllers.interfaces.IDeviceController;
-import controllers.interfaces.IUserController;
+import controllers.*;
+import controllers.interfaces.*;
 import data.PostgresDB;
 import data.interfaces.IDB;
-import repositories.BrandRepository;
-import repositories.DeviceRepository;
-import repositories.UserRepository;
-import repositories.interfaces.IBrandRepository;
-import repositories.interfaces.IDeviceRepository;
-import repositories.interfaces.IUserRepository;
+import repositories.*;
+import repositories.interfaces.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,7 +17,14 @@ public class Main {
         IBrandRepository repoBrand = new BrandRepository(db);
         IBrandController controllerBrand = new BrandController(repoBrand);
 
-        MyApplication app = new MyApplication(controller, controllerDevice, controllerBrand);
+        IOrderRepository orderRepo = new OrderRepository(db);
+        IOrderController controllerOrder = new OrderController(orderRepo);
+
+        IOrderItemRepository orderItemRepo = new OrderItemRepository(db);
+        IOrderItemController controllerOrderItem = new OrderItemController(orderItemRepo);
+
+
+        MyApplication app = new MyApplication(controller, controllerDevice, controllerBrand,controllerOrder,controllerOrderItem);
 
         app.start();
         db.close();
