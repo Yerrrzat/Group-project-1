@@ -33,10 +33,10 @@ public class Main {
         IReviewRepository reviewRepo = new ReviewRepository(db);
         IReviewController reviewController = new ReviewController(reviewRepo);
 
-        MyApplication app = new MyApplication(userController, deviceController, returnController, reviewController);
 
 
-        MyApplication app = new MyApplication(controller, controllerDevice, controllerBrand, controllerCategory, controllerOrder, controllerOrderItem);
+
+        MyApplication app = new MyApplication(controller, controllerDevice, controllerBrand, controllerCategory, controllerOrder, controllerOrderItem,returnController, reviewController);
 
         app.start();
         db.close();

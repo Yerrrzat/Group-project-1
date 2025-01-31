@@ -47,12 +47,13 @@ public class MyApplication {
                     case 12: getAllOrdersMenu(); break;
                     case 13: createOrderItemMenu(); break;
                     case 14: getOrderItemsByOrderIdMenu(); break;
-                    case 15: createUserMenu(); break;
-                    case 16: getReturnByIdMenu(); break;
-                    case 17: getAllUsersMenu(); break;
-                    case 18: createDeviceMenu(); break;
-                    case 19: getDeviceByIdMenu(); break;
-                    case 20: getAllDeviceMenu(); break;
+//                    case 15: createReturnMenu(); break;
+//                    case 16: getAllReturnMenu(); break;
+//                    case 17: getReturnByIdMenu(); break;
+//                    case 18: createReviewMenu(); break;
+//                    case 19: getAllReviewMenu(); break;
+//                    case 20: getRevewByIdMenu(); break;
+
                     default: return;
                 }
             } catch (InputMismatchException e) {
@@ -64,8 +65,60 @@ public class MyApplication {
         }
     }
 
-    private void getReturnByIdMenu() {
+    private void getRevewByIdMenu() {
+        System.out.println("Enter Review id: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        String response = reviewcontroller.getReviewById(id);
+        System.out.println(response);
     }
+
+    private void getAllReviewMenu() {
+        String response = reviewcontroller.getAllReviews();
+        System.out.println(response);
+    }
+    private void createReviewMenu() {
+    }
+
+
+
+    private void getAllReturnMenu() {
+        String response = returnController.getAllReturns();
+        System.out.println(response);
+    }
+
+    private void getReturnByIdMenu() {
+        System.out.println("Enter return id: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        String response = returnController.getReturnById(id);
+        System.out.println(response);
+
+}
+//    private void createReturnMenu() {
+//        System.out.println("Enter user id name: ");
+//        int userId = Integer.parseInt(scanner.nextLine());
+//        System.out.println("Enter device id name: ");
+//        int userId = Integer.parseInt(scanner.nextLine());
+//        System.out.println("Enter  description: ");
+//        String description = scanner.nextLine();
+//        System.out.println("Enter device category_id: ");
+//        int categoryId = Integer.parseInt(scanner.nextLine());
+//        System.out.println("Enter device brand: ");
+//        String brand = scanner.nextLine();
+//        System.out.println("Enter device price: ");
+//        double price = Double.parseDouble(scanner.nextLine());
+//        System.out.println("Enter device stock quantity: ");
+//        int stockQuantity = Integer.parseInt(scanner.nextLine());
+//        System.out.println("Enter device release date: ");
+//        String releaseDate = scanner.nextLine();
+//        System.out.println("Enter device specification: ");
+//        String specifications = scanner.nextLine();
+//
+//        String response = deviceController.createDevice(name, description, categoryId, brand, price, stockQuantity, releaseDate, specifications);
+//        System.out.println(response);
+//
+//    }
 
     private void createUserMenu() {
         System.out.println("Enter user name: ");
