@@ -6,7 +6,6 @@ public class Brand {
     private String description;
 
 
-    // Constructors
     public Brand(String name, String description) {
         this.name = name;
         this.description = description;
@@ -17,11 +16,9 @@ public class Brand {
         this.id = id;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -29,7 +26,6 @@ public class Brand {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -37,14 +33,12 @@ public class Brand {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
 
 
-    // toString method
     @Override
     public String toString() {
         return "Brand{" +
