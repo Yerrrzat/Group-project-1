@@ -208,13 +208,13 @@ public class MyApplication {
         System.out.println("Enter order id: ");
         int orderId = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter product id: ");
-        int productId = Integer.parseInt(scanner.nextLine());
+        int deviceId = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter quantity: ");
         int quantity = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter price: ");
         int price = Integer.parseInt(scanner.nextLine());
 
-        String response = orderItemController.createOrderItem(orderId, productId, quantity, price);
+        String response = orderItemController.createOrderItem(orderId, deviceId, quantity, price);
         System.out.println(response);
     }
 

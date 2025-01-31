@@ -24,7 +24,7 @@ public class OrderItemRepository implements IOrderItemRepository {
             PreparedStatement st = conn.prepareStatement(sql);
 
             st.setInt(1, orderItem.getOrderId());
-            st.setInt(2, orderItem.getProductId());
+            st.setInt(2, orderItem.getDeviceId());
             st.setInt(3, orderItem.getQuantity());
             st.setInt(4, orderItem.getPrice());
             st.execute();
