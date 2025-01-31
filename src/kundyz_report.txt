@@ -19,7 +19,7 @@ the connection. In catch If connection is null it will sent error and message.
 
 2. models package
 Inside of this package i created my java class , it is called "User.java".
-And in pg admin for postgresSQL i created users table to work and take inputs from this table. To create table in pgadmin i wrote code
+And in pgadmin for postgresSQL i created users table to work and take inputs from this table. To create table in pgadmin i wrote code
 create table and insert into methods to create this user table.
 So after I created table : columns are: id, name,surname,email,password,address,phone.
 In user class first i wrote fields from the table : private int id, private String name, and so on.
