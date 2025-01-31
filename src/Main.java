@@ -30,18 +30,10 @@ public class Main {
         IReturnRepository returnRepo = new ReturnRepository (db) {};
         IReturnController returnController = new ReturnController(returnRepo);
 
-        IReviewRepository reviewRepo = new ReviewRepository(db);
+        IReviewRepository reviewRepo = new ReviewRepository(db) {};
         IReviewController reviewController = new ReviewController(reviewRepo);
 
-        MyApplication app = new MyApplication(
-                userController,
-                deviceController,
-                brandController,
-                categoryController,
-                orderController,
-                orderItemController,
-                returnController,
-                reviewController
+        MyApplication app = new MyApplication(userController, deviceController, brandController, categoryController, orderController, orderItemController, returnController, reviewController
         );
 
         app.start();

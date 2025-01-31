@@ -5,7 +5,7 @@ import models.Return;
 import java.util.List;
 
 public interface IReturnRepository {
-    default boolean createReturn(Return returnRequest) // kept the original method
+    default boolean createReturn(Return returnRequest)
     {
         return false;
     }

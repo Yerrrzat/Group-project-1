@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class ReviewRepository implements IReviewRepository {
+public class ReviewRepository implements IReviewRepository {
     private final IDB db;
 
     public ReviewRepository(IDB db) {

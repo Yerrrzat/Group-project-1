@@ -15,8 +15,7 @@ public abstract class ReturnRepository<T extends models.Return> implements IRetu
         this.db = db;
     }
 
-    @Override
-    public boolean createReturn(@org.jetbrains.annotations.NotNull models.Return returnRequest) {
+   public boolean createReturn(Return returnRequest) {
         boolean result;
         try (Connection con = db.getConnection()) {
             String sql = "INSERT INTO Returns (user_id, device_id, reason, status) VALUES (?, ?, ?, 'pending')";

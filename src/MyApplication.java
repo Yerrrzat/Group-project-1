@@ -11,7 +11,7 @@ public class MyApplication {
     private final IOrderController orderController;
     private final IOrderItemController orderItemController;
     private final IReturnController returnController;
-    private final IReviewController Review;
+    private final IReviewController reviewcontroller;
     private final Scanner scanner = new Scanner(System.in);
 
     public MyApplication(IUserController userController, IDeviceController deviceController, IBrandController brandController,
@@ -23,6 +23,7 @@ public class MyApplication {
         this.orderController = orderController;
         this.orderItemController = orderItemController;
         this.returnController = returnController;
+        this.reviewcontroller = review;
     }
 
     public void start() {
