@@ -10,19 +10,17 @@ public class MyApplication {
     private final ICategoryController categoryController;
     private final IOrderController orderController;
     private final IOrderItemController orderItemController;
-    private final IReturnController returnController;
     private final IReviewController reviewcontroller;
     private final Scanner scanner = new Scanner(System.in);
 
     public MyApplication(IUserController userController, IDeviceController deviceController, IBrandController brandController,
-                         ICategoryController categoryController, IOrderController orderController, IOrderItemController orderItemController, IReturnController returnController, IReviewController reviewController) {
+                         ICategoryController categoryController, IOrderController orderController, IOrderItemController orderItemController, IReviewController reviewController) {
         this.userController = userController;
         this.deviceController = deviceController;
         this.brandController = brandController;
         this.categoryController = categoryController;
         this.orderController = orderController;
         this.orderItemController = orderItemController;
-        this.returnController = returnController;
         this.reviewcontroller = reviewController;
     }
 
@@ -47,12 +45,9 @@ public class MyApplication {
                     case 12: getAllOrdersMenu(); break;
                     case 13: createOrderItemMenu(); break;
                     case 14: getOrderItemsByOrderIdMenu(); break;
-//                    case 15: createReturnMenu(); break;
-//                    case 16: getAllReturnMenu(); break;
-//                    case 17: getReturnByIdMenu(); break;
-//                    case 18: createReviewMenu(); break;
-//                    case 19: getAllReviewMenu(); break;
-//                    case 20: getRevewByIdMenu(); break;
+                    case 15: getAllReviewMenu(); break;
+                    case 16: getRevewByIdMenu(); break;
+                    case 17: createReviewMenu(); break;
 
                     default: return;
                 }
@@ -78,47 +73,24 @@ public class MyApplication {
         System.out.println(response);
     }
     private void createReviewMenu() {
-    }
+        System.out.println("Enter user id : ");
+        int user_id = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter device id : ");
+        int device_id = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter rating: ");
+        int rating = Integer.parseInt(scanner.nextLine());
+        System.out.println("Share with comments: ");
+        String comment = scanner.nextLine();
 
 
+        String response = reviewcontroller.createReview(user_id,device_id, rating,comment);
 
-    private void getAllReturnMenu() {
-        String response = returnController.getAllReturns();
         System.out.println(response);
     }
 
-    private void getReturnByIdMenu() {
-        System.out.println("Enter return id: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        String response = returnController.getReturnById(id);
-        System.out.println(response);
 
-}
-//    private void createReturnMenu() {
-//        System.out.println("Enter user id name: ");
-//        int userId = Integer.parseInt(scanner.nextLine());
-//        System.out.println("Enter device id name: ");
-//        int userId = Integer.parseInt(scanner.nextLine());
-//        System.out.println("Enter  description: ");
-//        String description = scanner.nextLine();
-//        System.out.println("Enter device category_id: ");
-//        int categoryId = Integer.parseInt(scanner.nextLine());
-//        System.out.println("Enter device brand: ");
-//        String brand = scanner.nextLine();
-//        System.out.println("Enter device price: ");
-//        double price = Double.parseDouble(scanner.nextLine());
-//        System.out.println("Enter device stock quantity: ");
-//        int stockQuantity = Integer.parseInt(scanner.nextLine());
-//        System.out.println("Enter device release date: ");
-//        String releaseDate = scanner.nextLine();
-//        System.out.println("Enter device specification: ");
-//        String specifications = scanner.nextLine();
-//
-//        String response = deviceController.createDevice(name, description, categoryId, brand, price, stockQuantity, releaseDate, specifications);
-//        System.out.println(response);
-//
-//    }
+
+
 
     private void createUserMenu() {
         System.out.println("Enter user name: ");
@@ -271,12 +243,9 @@ public class MyApplication {
         System.out.println("12. Get all orders");
         System.out.println("13. Create new order item");
         System.out.println("14. Get order items by order id");
-        System.out.println("15. Create new return");
-        System.out.println("16. Get return by id");
-        System.out.println("17. Get all returns");
-        System.out.println("18. Create new review");
-        System.out.println("19. Get review by id");
-        System.out.println("20. Get all reviews");
+        System.out.println("15. Get all reviews");
+        System.out.println("16. Get review by id");
+        System.out.println("17. Create new review");
         System.out.println("0. Exit");
         System.out.print("Enter option: ");
 

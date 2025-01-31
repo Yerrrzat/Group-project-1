@@ -10,6 +10,8 @@ import java.util.List;
 
 public class ReviewRepository implements IReviewRepository {
     private final IDB db;
+    private List<Review> reviews;
+    private Review review;
 
     public ReviewRepository(IDB db) {
         this.db = db;
@@ -19,43 +21,70 @@ public class ReviewRepository implements IReviewRepository {
     public boolean createReview(Review review) {
         try (Connection con = db.getConnection();
              PreparedStatement st = con.prepareStatement("INSERT INTO Reviews (user_id, device_id, rating, comment) VALUES (?, ?, ?, ?)")) {
-            st.setInt(1, review.getUserId());
-            st.setInt(2, review.getDeviceId());
+            st.setInt(1, review.getUser_id());
+            st.setInt(2, review.getDevice_id());
             st.setInt(3, review.getRating());
             st.setString(4, review.getComment());
-            return st.executeUpdate() > 0;
+            st.execute();
+            return true;
+
         } catch (SQLException e) {
-            return false;
+            System.out.println("sql error" + e.getMessage());
         }
+        return false;
     }
 
     @Override
     public Review getReviewById(int id) {
-        try (Connection con = db.getConnection();
-             PreparedStatement st = con.prepareStatement("SELECT * FROM Reviews WHERE id = ?")) {
+        Connection conn = null;
+        try {
+            Connection con = db.getConnection();
+            String sql = "SELECT * FROM devices WHERE id=?";
+            PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return new Review(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("device_id"), rs.getInt("rating"), rs.getString("comment"));
+                return new Review(rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getInt("device_id"),
+                        rs.getInt("rating"),
+                        rs.getString("comment"));
+
             }
         } catch (SQLException e) {
-            return null;
+            System.out.println("sql error" + e.getMessage());
         }
         return null;
+
     }
 
     @Override
     public List<Review> getAllReviews() {
-        List<Review> reviews = new ArrayList<>();
-        try (Connection con = db.getConnection();
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery("SELECT * FROM Reviews")) {
+        Connection conn = null;
+        try {
+            conn = db.getConnection();
+            String sql = "SELECT * FROM Reviews";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            List<Review> reviews = new ArrayList<>();
+
             while (rs.next()) {
-                reviews.add(new Review(rs.getInt("id"), rs.getInt("user_id"), rs.getInt("device_id"), rs.getInt("rating"), rs.getString("comment")));
+                reviews.add(new Review(rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getInt("device_id"),
+                        rs.getInt("rating"),
+                        rs.getString("comment")));
+
+              
+                reviews.add(review);
+
             }
+            return reviews;
         } catch (SQLException e) {
-            return null;
+            System.out.println("sql error" + e.getMessage());
+
         }
-        return reviews;
+        return null;
     }
 }
+        
