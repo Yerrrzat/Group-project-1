@@ -47,6 +47,12 @@ public class MyApplication {
                     case 12: getAllOrdersMenu(); break;
                     case 13: createOrderItemMenu(); break;
                     case 14: getOrderItemsByOrderIdMenu(); break;
+                    case 15: createUserMenu(); break;
+                    case 16: getReturnByIdMenu(); break;
+                    case 17: getAllUsersMenu(); break;
+                    case 18: createDeviceMenu(); break;
+                    case 19: getDeviceByIdMenu(); break;
+                    case 20: getAllDeviceMenu(); break;
                     default: return;
                 }
             } catch (InputMismatchException e) {
@@ -56,6 +62,9 @@ public class MyApplication {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void getReturnByIdMenu() {
     }
 
     private void createUserMenu() {
@@ -209,7 +218,14 @@ public class MyApplication {
         System.out.println("12. Get all orders");
         System.out.println("13. Create new order item");
         System.out.println("14. Get order items by order id");
+        System.out.println("15. Create new return");
+        System.out.println("16. Get return by id");
+        System.out.println("17. Get all returns");
+        System.out.println("18. Create new review");
+        System.out.println("19. Get review by id");
+        System.out.println("20. Get all reviews");
         System.out.println("0. Exit");
         System.out.print("Enter option: ");
+
     }
 }

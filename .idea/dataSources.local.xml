@@ -7,5 +7,16 @@
       <user-name>postgres</user-name>
       <schema-mapping />
     </data-source>
+    <data-source name="devices_store@localhost" uuid="0c5f83b7-aef1-4991-879b-329589f689d2">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" />
+      <secret-storage>master_key</secret-storage>
+      <schema-mapping />
+    </data-source>
+    <data-source name="postgres@localhost" uuid="827f773b-e1f3-48ae-9bc6-2a93ea85417f">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>admin</user-name>
+      <schema-mapping />
+    </data-source>
   </component>
 </project>
