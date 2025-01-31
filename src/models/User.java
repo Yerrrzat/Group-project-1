@@ -18,6 +18,9 @@ public class User {
         setPhone(phone);
 
     }
+    public User() {
+
+    }
     public User(int id,String name, String surname, String email, String password, String address, String phone) {
         this(name,surname,email,password,address,phone);
         this.id=id;

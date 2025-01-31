@@ -1,0 +1,37 @@
+1. DATA PACKAGE
+I created data package and inside of this created INTERFACE OF DATABASE it is called "IDB". Inside of that i used only two methods:
+-One of them is a connection itself "Connection getconnection()", it is connection reference.
+-Second one is close connection " void close()".
+I used interface because for interface does not matter what kind of database we will use. And for all of them we need to create
+subclasses.
+
+Then inside of interfaces package of database, i created "PostgresDB" java class. And inside of the data package i created interfaces
+package, and sent my interface inside of this package. Then in PostgresDB i wrote "implements IDB", and then it asked to implements
+methods from IDB interface. After that i created fields : 1. host, username, password, database name of my database. Then i created
+constractor, and generated getter and setters for my fields. In that constractor i setted all fields of postgresDB "setHost(host),
+setUsername(username)" so on. In:
+-Fist implement connection: I created connectionUrl and used exception for connection: for try i wrote return connection of connection
+is not closed and is not null. And after that I needed to check my driver by "org.postgresql.Driver" it checks for the JDBC driver
+existence. If everything is okay I had to return connection. After i sent url,username and password of database to the DriverManager
+to get access. Then in catch I wrote exception to send message failed to connect if connection will be failed.
+-Second implement close():  i wrote if statement for connection.I used exception in try i wrote If connection is not null, close
+the connection. In catch If connection is null it will sent error and message.
+
+2. models package
+Inside of this package i created my java class , it is called "User.java".
+And in pg admin for postgresSQL i created users table to work and take inputs from this table. To create table in pgadmin i wrote code
+create table and insert into methods to create this user table.
+So after I created table : columns are: id, name,surname,email,password,address,phone.
+In user class first i wrote fields from the table : private int id, private String name, and so on.
+Then I generated getters and setters for these fields. After that I created 3 constructors, no argument constructor and two parametrized
+constructors for set() and this() methods. Then i used toString() method.
+
+Then I created two classes:
+     -Repositories  work with database
+     -Controllers work with models.
+3. Controllers package
+In package i created Interface for my tables like "IUserControllers".
+4. Repositories package
+In this package I created Interface for my tables like "IUserRepository".
+
+

@@ -11,6 +11,10 @@ public class  Device{
     private String release_date;
     private String specifications;
 
+    public Device(){
+
+    }
+
     public Device(String name, String description, int category_id, String brand, double price, int stock_quantity, String release_date, String specifications) {
         setName(name);
         setDescription(description);

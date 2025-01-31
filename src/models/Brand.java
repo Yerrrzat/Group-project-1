@@ -6,6 +6,8 @@ public class Brand {
     private String description;
 
 
+
+
     public Brand(String name, String description) {
         this.name = name;
         this.description = description;
