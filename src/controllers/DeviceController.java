@@ -6,7 +6,7 @@ import repositories.interfaces.IDeviceRepository;
 
 import java.util.List;
 
-public class DeviceController implements IDeviceController {
+public class    DeviceController implements IDeviceController {
     private final IDeviceRepository deviceRepository;
     public DeviceController(IDeviceRepository deviceRepository) {
         this.deviceRepository = deviceRepository;

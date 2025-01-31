@@ -27,6 +27,15 @@ public class Main {
         IOrderItemRepository orderItemRepo = new OrderItemRepository(db);
         IOrderItemController controllerOrderItem = new OrderItemController(orderItemRepo);
 
+        IReturnRepository returnRepo = new ReturnRepository(db);
+        IReturnController returnController = new ReturnController(returnRepo);
+
+        IReviewRepository reviewRepo = new ReviewRepository(db);
+        IReviewController reviewController = new ReviewController(reviewRepo);
+
+        MyApplication app = new MyApplication(userController, deviceController, returnController, reviewController);
+
+
         MyApplication app = new MyApplication(controller, controllerDevice, controllerBrand, controllerCategory, controllerOrder, controllerOrderItem);
 
         app.start();
