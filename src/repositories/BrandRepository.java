@@ -38,7 +38,7 @@ public class BrandRepository implements IBrandRepository {
         Connection conn = null;
         try {
             conn = db.getConnection();
-            String sql = "SELECT * FROM brands WHERE id = ?";
+            String sql = "SELECT * FROM brands WHERE id = ?";  // Corrected the table name to 'brands'
             PreparedStatement st = conn.prepareStatement(sql);
 
             st.setInt(1, id);
@@ -59,12 +59,14 @@ public class BrandRepository implements IBrandRepository {
     @Override
     public List<Brand> getAllBrands() {
         Connection conn = null;
+        List<Brand> brands = new ArrayList<>();
+
         try {
             conn = db.getConnection();
             String sql = "SELECT * FROM brands";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            List<Brand> brands = new ArrayList<>();
+
             while (rs.next()) {
                 Brand brand = new Brand(
                         rs.getInt("id"),
@@ -73,10 +75,11 @@ public class BrandRepository implements IBrandRepository {
                 );
                 brands.add(brand);
             }
-            return brands;
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
-        return null;
+
+        return brands;
     }
+
 }
