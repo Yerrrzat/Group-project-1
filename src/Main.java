@@ -8,6 +8,7 @@ import repositories.interfaces.*;
 public class Main {
     public static void main(String[] args) {
         IDB db = new PostgresDB("jdbc:postgresql://localhost:5432","postgres","123456789","devices_store");
+
         IUserRepository repo = new UserRepository(db);
         IUserController controller = new UserController(repo);
 
@@ -17,14 +18,16 @@ public class Main {
         IBrandRepository repoBrand = new BrandRepository(db);
         IBrandController controllerBrand = new BrandController(repoBrand);
 
+        ICategoryRepository repoCategory = new CategoryRepository(db);
+        ICategoryController controllerCategory = new CategoryController(repoCategory);
+
         IOrderRepository orderRepo = new OrderRepository(db);
         IOrderController controllerOrder = new OrderController(orderRepo);
 
         IOrderItemRepository orderItemRepo = new OrderItemRepository(db);
         IOrderItemController controllerOrderItem = new OrderItemController(orderItemRepo);
 
-
-        MyApplication app = new MyApplication(controller, controllerDevice, controllerBrand,controllerOrder,controllerOrderItem);
+        MyApplication app = new MyApplication(controller, controllerDevice, controllerBrand, controllerCategory, controllerOrder, controllerOrderItem);
 
         app.start();
         db.close();

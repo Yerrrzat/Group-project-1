@@ -1,8 +1,9 @@
 import controllers.interfaces.IBrandController;
+import controllers.interfaces.ICategoryController;
 import controllers.interfaces.IDeviceController;
-import controllers.interfaces.IUserController;
 import controllers.interfaces.IOrderController;
 import controllers.interfaces.IOrderItemController;
+import controllers.interfaces.IUserController;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,15 +12,17 @@ public class MyApplication {
     private final IUserController userController;
     private final IDeviceController deviceController;
     private final IBrandController brandController;
+    private final ICategoryController categoryController;
     private final IOrderController orderController;
     private final IOrderItemController orderItemController;
     private final Scanner scanner = new Scanner(System.in);
 
     public MyApplication(IUserController userController, IDeviceController deviceController, IBrandController brandController,
-                         IOrderController orderController, IOrderItemController orderItemController) {
+                         ICategoryController categoryController, IOrderController orderController, IOrderItemController orderItemController) {
         this.userController = userController;
         this.deviceController = deviceController;
         this.brandController = brandController;
+        this.categoryController = categoryController;
         this.orderController = orderController;
         this.orderItemController = orderItemController;
     }
@@ -29,7 +32,7 @@ public class MyApplication {
             mainMenu();
             try {
                 int option = scanner.nextInt();
-                scanner.nextLine(); // Consume newline
+                scanner.nextLine();
                 switch (option) {
                     case 1: getAllUsersMenu(); break;
                     case 2: getUserByIdMenu(); break;
@@ -37,16 +40,19 @@ public class MyApplication {
                     case 4: getAllDeviceMenu(); break;
                     case 5: getDeviceByIdMenu(); break;
                     case 6: createDeviceMenu(); break;
-                    case 7: createOrderMenu(); break;
-                    case 8: getOrderByIdMenu(); break;
-                    case 9: getAllOrdersMenu(); break;
-                    case 10: createOrderItemMenu(); break;
-                    case 11: getOrderItemsByOrderIdMenu(); break;
+                    case 7: getAllCategoriesMenu(); break;
+                    case 8: getCategoryByIdMenu(); break;
+                    case 9: createCategoryMenu(); break;
+                    case 10: createOrderMenu(); break;
+                    case 11: getOrderByIdMenu(); break;
+                    case 12: getAllOrdersMenu(); break;
+                    case 13: createOrderItemMenu(); break;
+                    case 14: getOrderItemsByOrderIdMenu(); break;
                     default: return;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Input must be an integer");
-                scanner.nextLine(); // Consume invalid input
+                System.out.println("Input must be an integer.");
+                scanner.nextLine();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -72,9 +78,9 @@ public class MyApplication {
     }
 
     private void getUserByIdMenu() {
-        System.out.println("Enter user id");
+        System.out.println("Enter user id: ");
         int id = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         String response = userController.getUserById(id);
         System.out.println(response);
     }
@@ -90,32 +96,56 @@ public class MyApplication {
         System.out.println("Enter device description: ");
         String description = scanner.nextLine();
         System.out.println("Enter device category_id: ");
-        int category_id = Integer.parseInt(scanner.nextLine());
+        int categoryId = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter device brand: ");
         String brand = scanner.nextLine();
         System.out.println("Enter device price: ");
         double price = Double.parseDouble(scanner.nextLine());
         System.out.println("Enter device stock quantity: ");
-        int stock_quantity = Integer.parseInt(scanner.nextLine());
+        int stockQuantity = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter device release date: ");
-        String release_date = scanner.nextLine();
+        String releaseDate = scanner.nextLine();
         System.out.println("Enter device specification: ");
         String specifications = scanner.nextLine();
 
-        String response = deviceController.createDevice(name, description, category_id, brand, price, stock_quantity, release_date, specifications);
+        String response = deviceController.createDevice(name, description, categoryId, brand, price, stockQuantity, releaseDate, specifications);
         System.out.println(response);
     }
 
     private void getDeviceByIdMenu() {
-        System.out.println("Enter device id");
+        System.out.println("Enter device id: ");
         int id = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         String response = deviceController.getDeviceById(id);
         System.out.println(response);
     }
 
     private void getAllDeviceMenu() {
         String response = deviceController.getAllDevices();
+        System.out.println(response);
+    }
+
+
+    private void createCategoryMenu() {
+        System.out.println("Enter category name: ");
+        String name = scanner.nextLine();
+        System.out.println("Enter category description: ");
+        String description = scanner.nextLine();
+
+        String response = categoryController.createCategory(name, description);
+        System.out.println(response);
+    }
+
+    private void getCategoryByIdMenu() {
+        System.out.println("Enter category id: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        String response = categoryController.getCategoryById(id);
+        System.out.println(response);
+    }
+
+    private void getAllCategoriesMenu() {
+        String response = categoryController.getAllCategories();
         System.out.println(response);
     }
 
@@ -172,11 +202,14 @@ public class MyApplication {
         System.out.println("4. Get all devices");
         System.out.println("5. Get device by id");
         System.out.println("6. Create new device");
-        System.out.println("7. Create new order");
-        System.out.println("8. Get order by id");
-        System.out.println("9. Get all orders");
-        System.out.println("10. Create new order item");
-        System.out.println("11. Get order items by order id");
+        System.out.println("7. Get all categories");
+        System.out.println("8. Get category by id");
+        System.out.println("9. Create new category");
+        System.out.println("10. Create new order");
+        System.out.println("11. Get order by id");
+        System.out.println("12. Get all orders");
+        System.out.println("13. Create new order item");
+        System.out.println("14. Get order items by order id");
         System.out.println("0. Exit");
         System.out.print("Enter option: ");
     }

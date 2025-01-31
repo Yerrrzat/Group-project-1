@@ -21,16 +21,12 @@ public class OrderRepository implements IOrderRepository {
         try {
             conn = db.getConnection();
             String sql = "INSERT INTO orders(user_id, status) VALUES(?, ?)";
-            PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement st = conn.prepareStatement(sql);
 
             st.setInt(1, order.getUserId());
             st.setString(2, order.getStatus());
             st.execute();
 
-            ResultSet rs = st.getGeneratedKeys();
-            if (rs.next()) {
-                order.setId(rs.getInt(1));
-            }
             return true;
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());

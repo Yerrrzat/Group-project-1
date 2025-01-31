@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Order {
     private int id;
-    private int userId;
+    private int userid;
     private Timestamp orderDate;
     private String status;
     private List<OrderItem> orderItems;
 
     public Order(int userId, String status) {
-        this.userId = userId;
+        this.userid = userid;
         this.status = status;
     }
 
@@ -31,11 +31,11 @@ public class Order {
     }
 
     public int getUserId() {
-        return userId;
+        return userid;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(int userid) {
+        this.userid = userid;
     }
 
     public Timestamp getOrderDate() {
@@ -66,7 +66,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", userId=" + userid +
                 ", orderDate=" + orderDate +
                 ", status='" + status + '\'' +
                 ", orderItems=" + orderItems +
