@@ -1,6 +1,8 @@
 package repositories.interfaces;
 
 
+import models.Review;
+
 import java.util.List;
 import java.util.Map;
 

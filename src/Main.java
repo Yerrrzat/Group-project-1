@@ -7,10 +7,8 @@ import repositories.interfaces.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Инициализация базы данных
         IDB db = new PostgresDB("jdbc:postgresql://localhost:5432", "postgres", "123456789", "devices_store");
 
-        // Инициализация репозиториев и контроллеров
         IUserRepository userRepo = new UserRepository(db);
         IUserController userController = new UserController(userRepo);
 
@@ -35,7 +33,6 @@ public class Main {
         IReviewRepository reviewRepo = new ReviewRepository(db);
         IReviewController reviewController = new ReviewController(reviewRepo);
 
-        // Создание и запуск приложения
         MyApplication app = new MyApplication(
                 userController,
                 deviceController,
@@ -49,7 +46,6 @@ public class Main {
 
         app.start();
 
-        // Закрытие соединения с базой данных
         db.close();
     }
 }

@@ -1,6 +1,7 @@
 package models;
 
 public class Return {
+    public static Return ReturnStatus;
     private int id;
     private int userId;
     private int deviceId;
@@ -18,6 +19,14 @@ public class Return {
     }
 
     public Return(int userId, int deviceId, String reason, String pending) {
+    }
+
+    public Return(int id, int userId, int deviceId, String reason, Object status) {
+    }
+
+    public static String valueOf(String status) {
+
+        return status;
     }
 
     public int getId() {

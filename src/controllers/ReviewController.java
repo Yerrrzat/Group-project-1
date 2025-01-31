@@ -4,8 +4,23 @@ import models.Review;
 import repositories.interfaces.IReviewRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public class ReviewController implements IReviewController {
+    @Override
+    public String createBrand(String name, String description) {
+        throw new UnsupportedOperationException("createBrand method is not implemented in ReviewController");
+    }
+
+    @Override
+    public String getBrandById(int id) {
+        throw new UnsupportedOperationException("getBrandById method is not implemented in ReviewController");
+    }
+
+    @Override
+    public String getAllBrands() {
+        throw new UnsupportedOperationException("getAllBrands method is not implemented in ReviewController");
+    }
     private final IReviewRepository repo;
 
     public ReviewController(IReviewRepository repo) {
@@ -19,17 +34,16 @@ public class ReviewController implements IReviewController {
         return created ? "Review created" : "Review creation failed";
     }
 
-    @Override
+
     public String getReviewById(int id) {
         Review review = repo.getReviewById(id);
         return (review == null) ? "Review not found" : review.toString();
     }
 
-    @Override
     public String getAllReviews() {
-        List<Review> reviews = repo.getAllReviews();
+        List<Map<String, Object>> reviews = repo.getAllReviews();
         StringBuilder response = new StringBuilder();
-        for (Review review : reviews) {
+        for (Map<String, Object> review : reviews) {
             response.append(review.toString()).append("\n");
         }
         return response.toString();
