@@ -14,8 +14,8 @@ public class ReviewController implements IReviewController {
     }
 
     @Override
-    public String createReview(int userId, int deviceId, int rating, String comment) {
-        Review review = new Review(userId, deviceId, rating, comment);
+    public String createReview(int user_id, int device_id, int rating, String comment) {
+        Review review = new Review(user_id, device_id, rating, comment);
         return repo.createReview(review) ? "Review created successfully" : "Error creating review";
     }
 

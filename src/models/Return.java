@@ -2,32 +2,32 @@ package models;
 
 public class Return {
     private int id;
-    private int userId;
-    private int deviceId;
+    private int user_id;
+    private int device_id;
     private String reason;
     private String status;
 
-    public Return(int userId, int deviceId, String reason) {
-        this.userId = userId;
-        this.deviceId = deviceId;
+    public Return(int user_id, int device_d, String s, String reason) {
+        this.user_id = user_id;
+        this.device_id = device_id;
         this.reason = reason;
         this.status = "pending";
     }
 
-    public Return(int id, int userId, int deviceId, String reason, String status) {
-        this(userId, deviceId, reason);
+    public Return(int id, int userId, int device_id, String reason, String status) {
+        this(userId, device_id, reason, reason);
         this.id = id;
         this.status = status;
     }
 
     public int getId() { return id; }
-    public int getUserId() { return userId; }
-    public int getDeviceId() { return deviceId; }
+    public int getUserId() { return user_id; }
+    public int getDeviceId() { return device_id; }
     public String getReason() { return reason; }
     public String getStatus() { return status; }
 
     @Override
     public String toString() {
-        return "Return{" + "id=" + id + ", userId=" + userId + ", deviceId=" + deviceId + ", reason='" + reason + "', status='" + status + "'}";
+        return "Return{" + "id=" + id + ", userId=" + user_id + ", deviceId=" + device_id + ", reason='" + reason + "', status='" + status + "'}";
     }
 }
