@@ -6,9 +6,9 @@ import java.util.List;
 public class Order {
     private int id;
     private int user_id;
-    private Timestamp orderDate;
+    private Timestamp order_date;
     private String status;
-    private List<OrderItem> orderItems;
+    private List<OrderItem> order_items;
 
     public Order(int userId, String status) {
         this.user_id = user_id;
@@ -18,7 +18,7 @@ public class Order {
     public Order(int id, int userId, Timestamp orderDate, String status) {
         this(userId, status);
         this.id = id;
-        this.orderDate = orderDate;
+        this.order_date = orderDate;
     }
 
     // Getters and Setters
@@ -39,11 +39,11 @@ public class Order {
     }
 
     public Timestamp getOrderDate() {
-        return orderDate;
+        return order_date;
     }
 
     public void setOrderDate(Timestamp orderDate) {
-        this.orderDate = orderDate;
+        this.order_date = orderDate;
     }
 
     public String getStatus() {
@@ -55,11 +55,11 @@ public class Order {
     }
 
     public List<OrderItem> getOrderItems() {
-        return orderItems;
+        return order_items;
     }
 
     public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+        this.order_items = orderItems;
     }
 
     @Override
@@ -67,9 +67,9 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", userId=" + user_id +
-                ", orderDate=" + orderDate +
+                ", orderDate=" + order_date +
                 ", status='" + status + '\'' +
-                ", orderItems=" + orderItems +
+                ", orderItems=" + order_items +
                 '}';
     }
 }

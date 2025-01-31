@@ -1,7 +1,5 @@
 package models;
 
-import java.math.BigDecimal;
-
 public class OrderItem {
     private int id;
     private int order_id;
