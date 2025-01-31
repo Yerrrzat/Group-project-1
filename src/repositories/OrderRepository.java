@@ -17,17 +17,18 @@ public class OrderRepository implements IOrderRepository {
 
     @Override
     public boolean createOrder(Order order) {
-        Connection conn = null;
-        try {
-            conn = db.getConnection();
-            String sql = "INSERT INTO orders(user_id, status,orderDate, OrderItems) VALUES(?, ?)";
-            PreparedStatement st = conn.prepareStatement(sql);
+        try (Connection conn = db.getConnection();
+             PreparedStatement st = conn.prepareStatement(
+                     "INSERT INTO orders (user_id, order_date, status, total_price) VALUES (?, ?, ?, ?)"
+             )) {
 
             st.setInt(1, order.getUserId());
-            st.setString(2, order.getStatus());
+            st.setTimestamp(2, order.getOrderDate());
+            st.setString(3, order.getStatus());
+            st.setDouble(4, order.getTotalPrice());
             st.execute();
-
             return true;
+
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
@@ -36,11 +37,8 @@ public class OrderRepository implements IOrderRepository {
 
     @Override
     public Order getOrderById(int id) {
-        Connection conn = null;
-        try {
-            conn = db.getConnection();
-            String sql = "SELECT * FROM orders WHERE id = ?";
-            PreparedStatement st = conn.prepareStatement(sql);
+        try (Connection conn = db.getConnection();
+             PreparedStatement st = conn.prepareStatement("SELECT * FROM orders WHERE id = ?")) {
 
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
@@ -49,9 +47,11 @@ public class OrderRepository implements IOrderRepository {
                         rs.getInt("id"),
                         rs.getInt("user_id"),
                         rs.getTimestamp("order_date"),
-                        rs.getString("status")
+                        rs.getString("status"),
+                        rs.getDouble("total_price") // Added total_price
                 );
             }
+
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
@@ -60,23 +60,22 @@ public class OrderRepository implements IOrderRepository {
 
     @Override
     public List<Order> getAllOrders() {
-        Connection conn = null;
-        try {
-            conn = db.getConnection();
-            String sql = "SELECT * FROM orders";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            List<Order> orders = new ArrayList<>();
+        List<Order> orders = new ArrayList<>();
+        try (Connection conn = db.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery("SELECT * FROM orders")) {
+
             while (rs.next()) {
-                Order order = new Order(
+                orders.add(new Order(
                         rs.getInt("id"),
                         rs.getInt("user_id"),
                         rs.getTimestamp("order_date"),
-                        rs.getString("status")
-                );
-                orders.add(order);
+                        rs.getString("status"),
+                        rs.getDouble("total_price") // Added total_price
+                ));
             }
             return orders;
+
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }

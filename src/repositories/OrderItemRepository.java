@@ -17,18 +17,18 @@ public class OrderItemRepository implements IOrderItemRepository {
 
     @Override
     public boolean createOrderItem(OrderItem orderItem) {
-        Connection conn = null;
-        try {
-            conn = db.getConnection();
-            String sql = "INSERT INTO order_items(order_id, device_id, quantity, price) VALUES(?, ?, ?, ?)";
-            PreparedStatement st = conn.prepareStatement(sql);
+        try (Connection conn = db.getConnection();
+             PreparedStatement st = conn.prepareStatement(
+                     "INSERT INTO order_items(order_id, device_id, quantity, price) VALUES (?, ?, ?, ?)"
+             )) {
 
             st.setInt(1, orderItem.getOrderId());
             st.setInt(2, orderItem.getDeviceId());
             st.setInt(3, orderItem.getQuantity());
-            st.setInt(4, orderItem.getPrice());
+            st.setDouble(4, orderItem.getPrice()); // Changed setInt to setDouble
             st.execute();
             return true;
+
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
@@ -37,11 +37,8 @@ public class OrderItemRepository implements IOrderItemRepository {
 
     @Override
     public OrderItem getOrderItemById(int id) {
-        Connection conn = null;
-        try {
-            conn = db.getConnection();
-            String sql = "SELECT * FROM order_items WHERE id = ?";
-            PreparedStatement st = conn.prepareStatement(sql);
+        try (Connection conn = db.getConnection();
+             PreparedStatement st = conn.prepareStatement("SELECT * FROM order_items WHERE id = ?")) {
 
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
@@ -51,9 +48,10 @@ public class OrderItemRepository implements IOrderItemRepository {
                         rs.getInt("order_id"),
                         rs.getInt("device_id"),
                         rs.getInt("quantity"),
-                        rs.getInt("price")
+                        rs.getDouble("price") // Changed getInt to getDouble
                 );
             }
+
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
@@ -62,26 +60,23 @@ public class OrderItemRepository implements IOrderItemRepository {
 
     @Override
     public List<OrderItem> getOrderItemsByOrderId(int orderId) {
-        Connection conn = null;
-        try {
-            conn = db.getConnection();
-            String sql = "SELECT * FROM order_items WHERE order_id = ?";
-            PreparedStatement st = conn.prepareStatement(sql);
+        List<OrderItem> orderItems = new ArrayList<>();
+        try (Connection conn = db.getConnection();
+             PreparedStatement st = conn.prepareStatement("SELECT * FROM order_items WHERE order_id = ?")) {
 
             st.setInt(1, orderId);
             ResultSet rs = st.executeQuery();
-            List<OrderItem> orderItems = new ArrayList<>();
             while (rs.next()) {
-                OrderItem orderItem = new OrderItem(
+                orderItems.add(new OrderItem(
                         rs.getInt("id"),
                         rs.getInt("order_id"),
                         rs.getInt("device_id"),
                         rs.getInt("quantity"),
-                        rs.getInt("price")
-                );
-                orderItems.add(orderItem);
+                        rs.getDouble("price") // Changed getInt to getDouble
+                ));
             }
             return orderItems;
+
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }

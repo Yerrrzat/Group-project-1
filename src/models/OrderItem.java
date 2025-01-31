@@ -5,17 +5,17 @@ public class OrderItem {
     private int order_id;
     private int device_id;
     private int quantity;
-    private int price;
+    private double price; // Changed from int to double
 
-    public OrderItem(int orderId, int device_id, int quantity, int price) {
+    public OrderItem(int orderId, int deviceId, int quantity, double price) {
         this.order_id = orderId;
-        this.device_id = device_id;
+        this.device_id = deviceId;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public OrderItem(int id, int orderId, int device_id, int quantity, int price) {
-        this(orderId, device_id, quantity, price);
+    public OrderItem(int id, int orderId, int deviceId, int quantity, double price) {
+        this(orderId, deviceId, quantity, price);
         this.id = id;
     }
 
@@ -40,8 +40,8 @@ public class OrderItem {
         return device_id;
     }
 
-    public void setDeviceId(int device_id) {
-        this.device_id = device_id;
+    public void setDeviceId(int deviceId) {
+        this.device_id = deviceId;
     }
 
     public int getQuantity() {
@@ -52,11 +52,11 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public int getPrice() {
+    public double getPrice() { // Changed return type from int to double
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) { // Changed parameter type from int to double
         this.price = price;
     }
 

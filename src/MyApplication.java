@@ -88,10 +88,6 @@ public class MyApplication {
         System.out.println(response);
     }
 
-
-
-
-
     private void createUserMenu() {
         System.out.println("Enter user name: ");
         String name = scanner.nextLine();

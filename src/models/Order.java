@@ -8,17 +8,25 @@ public class Order {
     private int user_id;
     private Timestamp order_date;
     private String status;
+    private double total_price;
     private List<OrderItem> order_items;
 
-    public Order(int userId, String status) {
-        this.user_id = user_id;
+    public Order(int id, String status) {
+        this.id = id;
         this.status = status;
     }
 
-    public Order(int id, int userId, Timestamp orderDate, String status) {
-        this(userId, status);
-        this.id = id;
+
+    public Order(int userId, Timestamp orderDate, String status, double totalPrice) {
+        this.user_id = userId;
         this.order_date = orderDate;
+        this.status = status;
+        this.total_price = totalPrice;
+    }
+
+    public Order(int id, int userId, Timestamp orderDate, String status, double totalPrice) {
+        this(userId, orderDate, status, totalPrice);
+        this.id = id;
     }
 
     // Getters and Setters
@@ -62,6 +70,14 @@ public class Order {
         this.order_items = orderItems;
     }
 
+    public double getTotalPrice() {
+        return total_price;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.total_price = totalPrice;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -69,6 +85,7 @@ public class Order {
                 ", userId=" + user_id +
                 ", orderDate=" + order_date +
                 ", status='" + status + '\'' +
+                ", totalPrice=" + total_price +
                 ", orderItems=" + order_items +
                 '}';
     }

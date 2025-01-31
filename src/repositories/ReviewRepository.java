@@ -39,7 +39,7 @@ public class ReviewRepository implements IReviewRepository {
         Connection conn = null;
         try {
             Connection con = db.getConnection();
-            String sql = "SELECT * FROM devices WHERE id=?";
+            String sql = "SELECT * FROM reviews WHERE id=?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
@@ -60,31 +60,26 @@ public class ReviewRepository implements IReviewRepository {
 
     @Override
     public List<Review> getAllReviews() {
-        Connection conn = null;
-        try {
-            conn = db.getConnection();
-            String sql = "SELECT * FROM Reviews";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            List<Review> reviews = new ArrayList<>();
+        List<Review> reviews = new ArrayList<>();
+        try (Connection conn = db.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery("SELECT * FROM reviews")) {
 
             while (rs.next()) {
-                reviews.add(new Review(rs.getInt("id"),
+                reviews.add(new Review(
+                        rs.getInt("id"),
                         rs.getInt("user_id"),
                         rs.getInt("device_id"),
                         rs.getInt("rating"),
-                        rs.getString("comment")));
-
-              
-                reviews.add(review);
-
+                        rs.getString("comment")
+                ));
             }
             return reviews;
         } catch (SQLException e) {
-            System.out.println("sql error" + e.getMessage());
-
+            System.out.println("SQL error: " + e.getMessage());
         }
         return null;
     }
+
 }
-        
+
