@@ -1,7 +1,6 @@
 package repositories.interfaces;
 
 import models.Brand;
-
 import java.util.List;
 
 public interface IBrandRepository {
@@ -9,3 +8,4 @@ public interface IBrandRepository {
     Brand getBrandById(int id);
     List<Brand> getAllBrands();
 }
+

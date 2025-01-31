@@ -31,6 +31,7 @@ public class MyApplication {
                     case 6: createDeviceMenu(); break;
                     case 7: getAllBrandsMenu(); break;
                     case 8: createBrandMenu(); break;
+                    case 9: getBrandByIdMenu(); break;
                     default: return;
                 }
 
@@ -43,13 +44,11 @@ public class MyApplication {
         }
     }
 
-    // Get all brands
     private void getAllBrandsMenu() {
         String response = brandController.getAllBrands();
         System.out.println(response);
     }
 
-    // Create a new brand
     private void createBrandMenu() {
         System.out.println("Enter brand name: ");
         String name = scanner.nextLine();
@@ -57,6 +56,13 @@ public class MyApplication {
         String description = scanner.nextLine();
 
         String response = brandController.createBrand(name, description);
+        System.out.println(response);
+    }
+
+    private void getBrandByIdMenu() {
+        System.out.println("Enter brand ID: ");
+        int id = scanner.nextInt();
+        String response = brandController.getBrandById(id);
         System.out.println(response);
     }
 
@@ -128,7 +134,7 @@ public class MyApplication {
     private void mainMenu() {
         System.out.println();
         System.out.println("Welcome to My Application");
-        System.out.println("Select an option (1-3):");
+        System.out.println("Select an option (1-9):");
         System.out.println("1. Get all users");
         System.out.println("2. Get user by id");
         System.out.println("3. Create new user");
@@ -137,7 +143,8 @@ public class MyApplication {
         System.out.println("6. Create new device");
         System.out.println("7. Get all brands");
         System.out.println("8. Create new brand");
+        System.out.println("9. Get brand by id");
         System.out.println("0. Exit");
-        System.out.print("Enter option (1-3): ");
+        System.out.print("Enter option (1-9): ");
     }
 }
