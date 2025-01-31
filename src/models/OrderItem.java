@@ -36,11 +36,11 @@ public class OrderItem {
         this.order_id = orderId;
     }
 
-    public int getProductId() {
+    public int getDeviceId() {
         return device_id;
     }
 
-    public void setProductId(int productId) {
+    public void setDeviceId(int productId) {
         this.device_id = device_id;
     }
 
