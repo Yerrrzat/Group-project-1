@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/c66f6b38-a1be-4713-bbdc-75f93e0f5db3/console.sql" dialect="Redshift" />
+  </component>
+</project>
