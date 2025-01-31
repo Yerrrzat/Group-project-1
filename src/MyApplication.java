@@ -29,6 +29,8 @@ public class MyApplication {
                     case 5:getDeviceByIdMenu();break;
                     case 6:createDeviceMenu();break;
 
+
+
                     default: return;
                 }
 
@@ -119,6 +121,6 @@ public class MyApplication {
         System.out.println("5. Get device by id");
         System.out.println("6. Create new device");
         System.out.println("0. Exit");
-        System.out.print("Enter option (1-3): ");
+        System.out.print("Enter option (1-24): ");
     }
 }

@@ -20,12 +20,12 @@ public class UserRepository implements IUserRepository {
     @Override
     public boolean createUser(User user) {
         Connection conn = null;
-        try{
-            conn=db.getConnection();
-            String sql="INSERT INTO users(name,surname,email,password,address,phone) VALUES (?,?,?,?,?,?)";
-            PreparedStatement st= conn.prepareStatement(sql);
+        try {
+            conn = db.getConnection();
+            String sql = "INSERT INTO users(name,surname,email,password,address,phone) VALUES (?,?,?,?,?,?)";
+            PreparedStatement st = conn.prepareStatement(sql);
 
-            st.setString(1,user.getName());
+            st.setString(1, user.getName());
             st.setString(2, user.getSurname());
             st.setString(3, user.getEmail());
             st.setString(4, user.getPassword());
@@ -35,8 +35,8 @@ public class UserRepository implements IUserRepository {
             st.execute();
             return true;
 
-        }catch(SQLException e){
-            System.out.println("sql error"+e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("sql error" + e.getMessage());
 
         }
         return false;
@@ -45,15 +45,15 @@ public class UserRepository implements IUserRepository {
     @Override
     public User getUserById(int id) {
         Connection conn = null;
-        try{
-            conn=db.getConnection();
-            String sql="SELECT * FROM users WHERE id=?";
-            PreparedStatement st=conn.prepareStatement(sql);
+        try {
+            conn = db.getConnection();
+            String sql = "SELECT * FROM users WHERE id=?";
+            PreparedStatement st = conn.prepareStatement(sql);
 
-            st.setInt(1,id);
+            st.setInt(1, id);
 
             ResultSet rs = st.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 return new User(rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("surname"),
@@ -65,7 +65,7 @@ public class UserRepository implements IUserRepository {
 
 
         } catch (SQLException e) {
-            System.out.println("sql error"+e.getMessage());
+            System.out.println("sql error" + e.getMessage());
         }
         return null;
     }
@@ -73,14 +73,14 @@ public class UserRepository implements IUserRepository {
     @Override
     public List<User> getAllUsers() {
         Connection conn = null;
-        try{
-            conn=db.getConnection();
-            String sql="SELECT * FROM users";
-            Statement st=conn.createStatement();
-            ResultSet rs= st.executeQuery(sql);
+        try {
+            conn = db.getConnection();
+            String sql = "SELECT * FROM users";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
             List<User> users = new ArrayList<>();
-            while (rs.next()){
-                User user=new User(rs.getInt("id"),
+            while (rs.next()) {
+                User user = new User(rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("surname"),
                         rs.getString("email"),
@@ -90,48 +90,10 @@ public class UserRepository implements IUserRepository {
                 users.add(user);
             }
             return users;
-        }catch (SQLException e){
-            System.out.println("sql error"+e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("sql error" + e.getMessage());
         }
         return null;
     }
 
-    public static class ReturnReviewController implements IReturnReviewController {
-        private final IReturnRepository returnRepository;
-        private final IReviewRepository reviewRepository;
-
-        public ReturnReviewController(IReturnRepository returnRepository, IReviewRepository reviewRepository) {
-            this.returnRepository = returnRepository;
-            this.reviewRepository = reviewRepository;
-        }
-
-        // Возвраты (Returns)
-        @Override
-        public boolean createReturn(int userId, int deviceId, String reason) {
-            Return returnRequest = new Return(userId, deviceId, reason, "Pending");
-            return returnRepository.createReturn(returnRequest);
-        }
-
-        @Override
-        public List<Return> getAllReturns() {
-            return returnRepository.getAllReturns();
-        }
-
-        @Override
-        public boolean updateReturnStatus(int returnId, String status) {
-            return returnRepository.updateReturnStatus(returnId, status);
-        }
-
-        // Отзывы (Reviews)
-        @Override
-        public boolean addReview(int userId, int deviceId, int rating, String comment) {
-            Review review = new Review(userId, deviceId, rating, comment);
-            return reviewRepository.addReview(review);
-        }
-
-        @Override
-        public List<Review> getReviewsByDevice(int deviceId) {
-            return reviewRepository.getReviewsByDevice(deviceId);
-        }
-    }
 }
