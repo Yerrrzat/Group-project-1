@@ -1,0 +1,99 @@
+1. models Package
+Class Review
+This class represents the review entity. I created it based on the reviews table in the database. The class fields correspond to the table columns: id, userId, deviceId, rating, and comment.
+
+For each field, I created getters and setters to access and modify the data.
+
+I also created constructors: an empty constructor and a parameterized constructor to initialize the fields.
+
+The toString() method was overridden to provide a clear representation of the review data.
+
+Class Return
+This class represents the return entity. It corresponds to the returns table in the database. The fields include id, orderId, userId, deviceId, reason, and status.
+
+Getters and setters were created for each field to manage the data.
+
+Constructors were implemented to initialize the fields, including a parameterized constructor for creating return objects with specific values.
+
+The toString() method was overridden to display return details.
+
+2. repositories Package
+Interface IReviewRepository
+This interface defines methods for working with review data in the database. For example:
+
+void addReview(Review review) — adding a new review.
+
+Review getReview(int id) — retrieving a review by its ID.
+The interface ensures that the database logic for reviews is separated from the application logic.
+
+Class ReviewRepository
+This class implements the IReviewRepository interface and is responsible for executing SQL queries related to reviews.
+
+In the constructor, I pass an IDB object to establish a database connection.
+
+Methods like addReview() and getReview() use SQL queries to interact with the database and handle exceptions.
+
+Interface IReturnRepository
+This interface defines methods for managing return data in the database. For example:
+
+void addReturn(Return return) — adding a new return request.
+
+Return getReturn(int id) — retrieving a return request by its ID.
+The interface helps decouple the database logic from the application logic.
+
+Class ReturnRepository
+This class implements the IReturnRepository interface and handles SQL queries for return operations.
+
+The constructor takes an IDB object to connect to the database.
+
+Methods like addReturn() and getReturn() execute SQL queries and manage exceptions.
+
+3. controllers Package
+Interface IReviewController
+This interface defines methods for managing reviews at the application level. For example:
+
+void addReview(Review review) — adding a review.
+
+Review getReview(int id) — retrieving a review by ID.
+Controllers handle the logic for processing review-related requests.
+
+Class ReviewController
+This class implements the IReviewController interface and uses ReviewRepository to interact with the database.
+
+In the constructor, I pass an IReviewRepository object to use its methods.
+
+Methods like addReview() and getReview() call the corresponding repository methods and handle errors.
+
+Interface IReturnController
+This interface defines methods for managing return requests at the application level. For example:
+
+void addReturn(Return return) — adding a return request.
+
+Return getReturn(int id) — retrieving a return request by ID.
+Controllers manage the logic for processing return-related requests.
+
+Class ReturnController
+This class implements the IReturnController interface and uses ReturnRepository to interact with the database.
+
+The constructor takes an IReturnRepository object to use its methods.
+
+Methods like addReturn() and getReturn() call the corresponding repository methods and handle exceptions.
+
+4. Definitions
+Controllers
+Controllers are classes that manage the application logic. They receive requests related to reviews and returns, process them, and pass data to repositories or models. Controllers act as a bridge between the user interface and the business logic.
+
+Repository
+Repositories are classes responsible for interacting with the database. They execute SQL queries for reviews and returns and return data as model objects. Repositories isolate the database logic from the rest of the application.
+
+Models
+Models are classes that represent application entities, such as reviews and returns. They contain data and methods for working with that data. Models are used to store information that is passed between controllers and repositories.
+
+5. Conclusion
+In this project, I implemented classes and interfaces for managing reviews and returns.
+
+models — represents review and return entities.
+
+repositories — handles database operations for reviews and returns.
+
+controllers — manages the application logic for reviews and returns.

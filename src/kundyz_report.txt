@@ -33,15 +33,100 @@ Then I created two classes:
 In package i created Interface for my tables like "IUserControllers" and java class "UserController". In controllers pacckage i created interfaces package and sent my interface
 user controller to this package. UserController implements to user controller interface. In IUserController i used three methods. CreateUser(),getUserById() and getAllUsers().
 Then in user controller java it implemented all those three methods.
+
+1 implement createUser(): Through boolean method we are checking if user was created. And then return response as if statement in one-line. If user is created it will send message
+"User was created"
+2 implement getUserById(): i created user variable and use getUserById(). And return response as a message using is statement. If user will not found by its id, it will send
+"User was not found".
+3. implement getAllUsers():Through List array for users we got connection. Then
+
+
 4. Repositories package
-In this package I created Interface for my tables like "IUserRepository" and java class "UserRepository". In repositories pacckage i created interfaces package and sent my interface
+In this package I created Interface for my tables like "IUserRepository" and java class "UserRepository". In repositories package i created interfaces package and sent my interface
 user repository to this package.  UserRepository implements to user repository interface.
 IUserRepository interface: i created methods- boolean createUser(),getUserById(), and getAllUsers trough List. In Java class repository i implemented all those methods.
 But in repository i wrote connection to the database.
 
-1.implement: This implement is in boolean type. At first i created connection to database with try-catch exception.In try part i wrote postgresSQL commands. For this i used prepared
-statement then i wrote "INSERT INTO..." commands after that wrote code to get data from table using set and get. In catch i wrote error .
-2.implement:
-3.implement:
+1.implement createUser(): This implement is in boolean type. At first i created connection to database with try-catch exception.In try part i wrote postgresSQL commands.
+For this i used prepared statement then i wrote "INSERT INTO..." commands after that wrote code to get data from table using set and get. In catch i wrote error .
+2.implement getUserById(): It first i created connection then wrote try-catch exception. In try i wrote prepare statement which select users by id and in catch the error message if
+connection will be failed.
+3.implement List<User> getAllUsers(): i created database connection then in try i wrote command "Select * from users" which select all users, in catch the error message if connection will be
+failed. I used StringBuilder to take each users. Then I used for loop to and used append() function to add each new users to the user table.
+
+Definition:
+-Prepared Statement: A PreparedStatement is a precompiled SQL query in Java that helps run database commands efficiently and safely by using placeholders to prevent SQL injection.
+-StringBuilder: A StringBuilder is a Java class that helps modify strings quickly and efficiently without creating new objects each time.
+-Controllers: In Java, especially in Spring MVC, controllers handle user requests, process data, and return responses, acting as a bridge between the frontend and backend.
+-Repositories: In Spring Data JPA, repositories are interfaces that manage database operations, allowing easy data retrieval, saving, and updating without writing SQL queries.
+-JDBC (Java Database Connectivity): JDBC is an API in Java that allows applications to connect to databases, send SQL queries, and retrieve results.
+
+5. main
+In this code, I first create a connection to the database using the PostgresDB class, which implements the IDB interface. I pass the database URL, username, password,
+and database name as parameters to establish the connection. Next, I create a UserRepository object, which implements the IUserRepository interface and is responsible
+for interacting with the users' table in the database by executing SQL queries through the db object. After that, I create a UserController object, which implements the
+IUserController interface and manages the business logic related to users, handling user requests and calling appropriate repository methods. Then, I create a MyApplication
+object, which serves as the main application class, taking controller as an argument to handle user interactions. I call the start() method to launch the application and
+allow user interaction. Finally, I close the database connection using db.close(), ensuring that there are no resource leaks.
+
+This code follows the MVC (Model-View-Controller) architectural pattern, where the controller processes user requests, the repository executes database operations, and
+the database layer handles connections to PostgreSQL. This structure makes the code more organized, maintainable, and scalable.
+
+Definitions:
+-A Controller is a class that processes user requests and calls the appropriate repository methods. A Repository is a layer responsible for executing SQL queries and handling
+data operations.
+-JDBC (Java Database Connectivity) is a technology that allows Java applications to interact with databases using SQL.
+-IDB is a database interface that provides flexibility in switching databases without modifying the application logic. PostgresDB is an implementation of the IDB interface that connects to a PostgreSQL database.
+-MyApplication is the main class that starts the application and manages user interactions.
+
+6. My Application:
+In this code, I create a MyApplication class that serves as the main interface for interacting with users. It takes an IUserController object as a parameter in the constructor,
+allowing it to communicate with the user management system. I also create a Scanner object for reading user input from the console.
+The start() method runs an infinite loop that displays the main menu and processes user input. It reads an integer option from the user and calls the corresponding menu
+function. If the user enters an invalid option, the loop exits. I handle incorrect input types with an InputMismatchException, ensuring the program does not crash when
+non-integer values are entered.
+
+The mainMenu() method displays available actions, such as retrieving all users, fetching a user by ID, creating a new user, or exiting the application. The getAllUsersMenu()
+method calls the getAllUsers() function from userController and prints the list of users. The getUserByIdMenu() method asks for a user ID, reads the input, and retrieves
+the user's details. The createUserMenu() method prompts the user for various details such as name, surname, email, password, address, and phone number, then sends this
+data to userController.createUser() and prints the response.
+
+This code follows the MVC (Model-View-Controller) pattern, where the MyApplication class represents the View (user interface), the UserController acts as the Controller
+(handling logic), and the UserRepository interacts with the Model (database). This structure keeps the application modular and easy to maintain.
+
+7. Definitions:
+Controller: A class that processes user requests, interacts with the repository, and returns the results to the user.
+
+Repository: A layer that communicates with the database, executes SQL queries, and manages data storage and retrieval.
+
+JDBC (Java Database Connectivity): A technology that allows Java programs to connect to databases and execute SQL commands.
+
+IDB (Database Interface): An interface that defines how the application connects to a database, making it easy to switch between different databases.
+
+PostgresDB: A class that implements IDB and connects the application to a PostgreSQL database.
+
+MyApplication: The main class that provides a menu for users to interact with the system and handles user input.
+
+Scanner: A Java class used to read user input from the console.
+
+Prepared Statement: A PreparedStatement is a precompiled SQL query in Java that helps run database commands efficiently and safely by using placeholders to prevent SQL
+injection.
+
+StringBuilder: A StringBuilder is a Java class that helps modify strings quickly and efficiently without creating new objects each time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
