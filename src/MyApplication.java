@@ -1,9 +1,4 @@
-import controllers.interfaces.IBrandController;
-import controllers.interfaces.ICategoryController;
-import controllers.interfaces.IDeviceController;
-import controllers.interfaces.IOrderController;
-import controllers.interfaces.IOrderItemController;
-import controllers.interfaces.IUserController;
+import controllers.interfaces.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -15,16 +10,19 @@ public class MyApplication {
     private final ICategoryController categoryController;
     private final IOrderController orderController;
     private final IOrderItemController orderItemController;
+    private final IReturnController returnController;
+    private final IReviewController Review;
     private final Scanner scanner = new Scanner(System.in);
 
     public MyApplication(IUserController userController, IDeviceController deviceController, IBrandController brandController,
-                         ICategoryController categoryController, IOrderController orderController, IOrderItemController orderItemController) {
+                         ICategoryController categoryController, IOrderController orderController, IOrderItemController orderItemController, IReturnController returnController, IReviewController reviewController) {
         this.userController = userController;
         this.deviceController = deviceController;
         this.brandController = brandController;
         this.categoryController = categoryController;
         this.orderController = orderController;
         this.orderItemController = orderItemController;
+        this.returnController = returnController;
     }
 
     public void start() {

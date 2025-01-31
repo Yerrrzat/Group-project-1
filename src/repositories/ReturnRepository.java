@@ -1,14 +1,13 @@
 package repositories;
 
 import data.interfaces.IDB;
-import entities.Return;
 import repositories.interfaces.IReturnRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReturnRepository implements IReturnRepository {
+public abstract class ReturnRepository<Return> implements IReturnRepository {
     private final IDB db;
 
     public ReturnRepository(IDB db) {
@@ -17,21 +16,32 @@ public class ReturnRepository implements IReturnRepository {
 
     @Override
     public boolean createReturn(Return returnRequest) {
+        boolean result;
         try (Connection con = db.getConnection()) {
             String sql = "INSERT INTO Returns (user_id, device_id, reason, status) VALUES (?, ?, ?, 'pending')";
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, returnRequest.getUserId());
             st.setInt(2, returnRequest.getDeviceId());
             st.setString(3, returnRequest.getReason());
-            return st.executeUpdate() > 0;
+            result = st.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            result = false;
         }
+        return result;
+    }
+
+    /**
+     * @param returnRequest
+     * @return
+     */
+    @Override
+    public boolean createReturn(Object returnRequest) {
+        return false;
     }
 
     @Override
-    public List<Return> getAllReturns() {
+    public List<models.Return> getAllReturns() {
         List<Return> returns = new ArrayList<>();
         try (Connection con = db.getConnection()) {
             String sql = "SELECT * FROM Returns";
@@ -48,7 +58,7 @@ public class ReturnRepository implements IReturnRepository {
     }
 
     @Override
-    public Return getReturnById(int id) {
+    public models.Return getReturnById(int id) {
         try (Connection con = db.getConnection()) {
             String sql = "SELECT * FROM Returns WHERE id = ?";
             PreparedStatement st = con.prepareStatement(sql);

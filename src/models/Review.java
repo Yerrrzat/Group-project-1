@@ -17,6 +17,9 @@ public class Review {
         this.createdAt = createdAt;
     }
 
+    public Review(int userId, int deviceId, String comment, int rating) {
+    }
+
     public int getId() {
         return id;
     }

@@ -7,38 +7,49 @@ import repositories.interfaces.*;
 
 public class Main {
     public static void main(String[] args) {
-        IDB db = new PostgresDB("jdbc:postgresql://localhost:5432","postgres","123456789","devices_store");
+        // Инициализация базы данных
+        IDB db = new PostgresDB("jdbc:postgresql://localhost:5432", "postgres", "123456789", "devices_store");
 
-        IUserRepository repo = new UserRepository(db);
-        IUserController controller = new UserController(repo);
+        // Инициализация репозиториев и контроллеров
+        IUserRepository userRepo = new UserRepository(db);
+        IUserController userController = new UserController(userRepo);
 
-        IDeviceRepository repoDevice = new DeviceRepository(db);
-        IDeviceController controllerDevice = new DeviceController(repoDevice);
+        IDeviceRepository deviceRepo = new DeviceRepository(db);
+        IDeviceController deviceController = new DeviceController(deviceRepo);
 
-        IBrandRepository repoBrand = new BrandRepository(db);
-        IBrandController controllerBrand = new BrandController(repoBrand);
+        IBrandRepository brandRepo = new BrandRepository(db);
+        IBrandController brandController = new BrandController(brandRepo);
 
-        ICategoryRepository repoCategory = new CategoryRepository(db);
-        ICategoryController controllerCategory = new CategoryController(repoCategory);
+        ICategoryRepository categoryRepo = new CategoryRepository(db);
+        ICategoryController categoryController = new CategoryController(categoryRepo);
 
         IOrderRepository orderRepo = new OrderRepository(db);
-        IOrderController controllerOrder = new OrderController(orderRepo);
+        IOrderController orderController = new OrderController(orderRepo);
 
         IOrderItemRepository orderItemRepo = new OrderItemRepository(db);
-        IOrderItemController controllerOrderItem = new OrderItemController(orderItemRepo);
+        IOrderItemController orderItemController = new OrderItemController(orderItemRepo);
 
-        IReturnRepository returnRepo = new ReturnRepository(db);
+        IReturnRepository returnRepo = new ReturnRepository (db) {};
         IReturnController returnController = new ReturnController(returnRepo);
 
         IReviewRepository reviewRepo = new ReviewRepository(db);
         IReviewController reviewController = new ReviewController(reviewRepo);
 
-        MyApplication app = new MyApplication(userController, deviceController, returnController, reviewController);
-
-
-        MyApplication app = new MyApplication(controller, controllerDevice, controllerBrand, controllerCategory, controllerOrder, controllerOrderItem);
+        // Создание и запуск приложения
+        MyApplication app = new MyApplication(
+                userController,
+                deviceController,
+                brandController,
+                categoryController,
+                orderController,
+                orderItemController,
+                returnController,
+                reviewController
+        );
 
         app.start();
+
+        // Закрытие соединения с базой данных
         db.close();
     }
 }

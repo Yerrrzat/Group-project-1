@@ -17,6 +17,9 @@ public class Return {
         this.createdAt = createdAt;
     }
 
+    public Return(int userId, int deviceId, String reason, String pending) {
+    }
+
     public int getId() {
         return id;
     }
