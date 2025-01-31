@@ -6,53 +6,27 @@ public class Review {
     private int deviceId;
     private int rating;
     private String comment;
-    private String createdAt;
 
-    public Review(int id, int userId, int deviceId, int rating, String comment, String createdAt) {
-        this.id = id;
+    public Review(int userId, int deviceId, int rating, String comment) {
         this.userId = userId;
         this.deviceId = deviceId;
         this.rating = rating;
         this.comment = comment;
-        this.createdAt = createdAt;
     }
 
-    public Review(int userId, int deviceId, String comment, int rating) {
+    public Review(int id, int userId, int deviceId, int rating, String comment) {
+        this(userId, deviceId, rating, comment);
+        this.id = id;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public int getDeviceId() {
-        return deviceId;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
+    public int getId() { return id; }
+    public int getUserId() { return userId; }
+    public int getDeviceId() { return deviceId; }
+    public int getRating() { return rating; }
+    public String getComment() { return comment; }
 
     @Override
     public String toString() {
-        return "Review{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", deviceId=" + deviceId +
-                ", rating=" + rating +
-                ", comment='" + comment + '\'' +
-                ", createdAt='" + createdAt + '\'' +
-                '}';
+        return "Review{" + "id=" + id + ", userId=" + userId + ", deviceId=" + deviceId + ", rating=" + rating + ", comment='" + comment + "'}";
     }
 }
