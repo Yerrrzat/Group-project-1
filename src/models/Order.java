@@ -1,15 +1,14 @@
 package models;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 public class Order {
     private int id;
     private int user_id;
-    private Timestamp order_date;
+    private String order_date;
     private String status;
     private double total_price;
-    private List<OrderItem> order_items;
+
 
     public Order(int id, String status) {
         this.id = id;
@@ -17,17 +16,18 @@ public class Order {
     }
 
 
-    public Order(int userId, Timestamp orderDate, String status, double totalPrice) {
+    public Order(int userId, String orderDate, String status, double totalPrice) {
         this.user_id = userId;
-        this.order_date = orderDate;
+        this.order_date = String.valueOf(orderDate);
         this.status = status;
         this.total_price = totalPrice;
     }
 
-    public Order(int id, int userId, Timestamp orderDate, String status, double totalPrice) {
+    public Order(int id, int userId, String orderDate, String status, double totalPrice) {
         this(userId, orderDate, status, totalPrice);
         this.id = id;
     }
+
 
     // Getters and Setters
     public int getId() {
@@ -46,12 +46,12 @@ public class Order {
         this.user_id = userid;
     }
 
-    public Timestamp getOrderDate() {
+    public String getOrderDate() {
         return order_date;
     }
 
-    public void setOrderDate(Timestamp orderDate) {
-        this.order_date = orderDate;
+    public void setOrderDate(String orderDate) {
+        this.order_date = order_date;
     }
 
     public String getStatus() {
@@ -62,13 +62,7 @@ public class Order {
         this.status = status;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return order_items;
-    }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.order_items = orderItems;
-    }
 
     public double getTotalPrice() {
         return total_price;
@@ -86,7 +80,7 @@ public class Order {
                 ", orderDate=" + order_date +
                 ", status='" + status + '\'' +
                 ", totalPrice=" + total_price +
-                ", orderItems=" + order_items +
+
                 '}';
     }
 }
