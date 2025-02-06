@@ -1,7 +1,5 @@
 package models;
 
-import java.sql.Timestamp;
-
 public class Order {
     private int id;
     private int user_id;
@@ -9,25 +7,28 @@ public class Order {
     private String status;
     private double total_price;
 
-
+    // Constructor with (id, status)
     public Order(int id, String status) {
         this.id = id;
         this.status = status;
     }
 
-
+    // Constructor with (userId, orderDate, status, totalPrice)
     public Order(int userId, String orderDate, String status, double totalPrice) {
         this.user_id = userId;
-        this.order_date = String.valueOf(orderDate);
+        this.order_date = orderDate;
         this.status = status;
         this.total_price = totalPrice;
     }
 
+    // Constructor with (id, userId, orderDate, status, totalPrice)
     public Order(int id, int userId, String orderDate, String status, double totalPrice) {
-        this(userId, orderDate, status, totalPrice);
         this.id = id;
+        this.user_id = userId;
+        this.order_date = orderDate;
+        this.status = status;
+        this.total_price = totalPrice;
     }
-
 
     // Getters and Setters
     public int getId() {
@@ -42,8 +43,8 @@ public class Order {
         return user_id;
     }
 
-    public void setUserId(int userid) {
-        this.user_id = userid;
+    public void setUserId(int userId) {
+        this.user_id = userId;
     }
 
     public String getOrderDate() {
@@ -51,7 +52,7 @@ public class Order {
     }
 
     public void setOrderDate(String orderDate) {
-        this.order_date = order_date;
+        this.order_date = orderDate;
     }
 
     public String getStatus() {
@@ -61,8 +62,6 @@ public class Order {
     public void setStatus(String status) {
         this.status = status;
     }
-
-
 
     public double getTotalPrice() {
         return total_price;
@@ -77,10 +76,9 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", userId=" + user_id +
-                ", orderDate=" + order_date +
+                ", orderDate='" + order_date + '\'' +
                 ", status='" + status + '\'' +
                 ", totalPrice=" + total_price +
-
                 '}';
     }
 }

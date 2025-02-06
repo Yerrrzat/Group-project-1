@@ -99,6 +99,25 @@ public class DeviceRepository implements IDeviceRepository {
         }
         return null;
     }
+    @Override
+    public double getDevicePriceById(int id) {
+        Connection conn = null;
+        try {
+            conn = db.getConnection();
+            String sql = "SELECT price FROM devices WHERE id=?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getDouble("price");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
+        return -1; // Return -1 if device is not found
+    }
+
 }
 
 

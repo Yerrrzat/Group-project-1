@@ -39,4 +39,10 @@ public class    DeviceController implements IDeviceController {
         }
         return sb.toString();
     }
+
+    @Override
+    public double getDevicePriceById(int deviceId) {
+        return deviceRepository.getDevicePriceById(deviceId);
+    }
+
 }

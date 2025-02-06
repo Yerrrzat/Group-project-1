@@ -1,7 +1,5 @@
 import controllers.interfaces.*;
 
-import java.time.LocalDateTime;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MyApplication {
@@ -94,7 +92,7 @@ public class MyApplication {
         int user_id = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter device id : ");
         int device_id = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter rating: ");
+        System.out.println("Enter rating (1-5): ");
         int rating = Integer.parseInt(scanner.nextLine());
         System.out.println("Share with comments: ");
         String comment = scanner.nextLine();
@@ -142,16 +140,18 @@ public class MyApplication {
         System.out.print("Enter device ID to purchase: ");
         int deviceId = scanner.nextInt();
         scanner.nextLine();
+        double devicePrice = deviceController.getDevicePriceById(deviceId);
+        if (devicePrice == -1) {
+            System.out.println("Invalid device ID. Please try again.");
+            return;
+        }
 
         System.out.print("Confirm purchase (yes/no): ");
         String confirm = scanner.nextLine();
 
         if (confirm.equalsIgnoreCase("yes")) {
-            // Get the current date and time
-            LocalDateTime orderDate = LocalDateTime.now(); // Correct variable name
-
-            // Assuming createOrder accepts (deviceId, orderDate, status, price)
-            orderController.createOrder(deviceId, String.valueOf(orderDate), "Pending", 1099.99);
+            String response = orderController.createOrder(1, "2025-02-08 08:20:00", "Pending", devicePrice);
+            System.out.println(response);
 
             System.out.println("Purchase successful! Thank you.");
             System.out.print("Would you like to leave a review? (yes/no): ");

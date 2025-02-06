@@ -23,7 +23,7 @@ public class OrderRepository implements IOrderRepository {
              )) {
 
             st.setInt(1, order.getUserId());
-            st.setString(2, order.getOrderDate());
+            st.setString(2,order.getOrderDate());
             st.setString(3, order.getStatus());
             st.setDouble(4, order.getTotalPrice());
             st.execute();
