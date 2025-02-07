@@ -10,4 +10,6 @@ public interface IUserRepository {
     boolean deleteUser(int id);
     boolean updateUser(int id, String name, String surname);
     User getUserByEmail(String email);
+    int getUserIdByEmail(String email);
+    String getUserRoleById(int userId);
 }

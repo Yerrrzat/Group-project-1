@@ -99,23 +99,42 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-        public User getUserByEmail(String email) {
-            try (Connection conn = db.getConnection()) {
-                String sql = "SELECT * FROM users WHERE email = ?";
-                PreparedStatement st = conn.prepareStatement(sql);
-                st.setString(1, email);
-                ResultSet rs = st.executeQuery();
+    public User getUserByEmail(String email) {
+        try (Connection conn = db.getConnection()) {
+            String sql = "SELECT * FROM users WHERE email = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
 
-                if (rs.next()) {
-                    return new User(rs.getInt("id"), rs.getString("name"), rs.getString("surname"),
-                            rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"));
-                }
-            } catch (SQLException e) {
-                System.out.println("SQL error: " + e.getMessage());
+            if (rs.next()) {
+                return new User(rs.getInt("id"), rs.getString("name"), rs.getString("surname"),
+                        rs.getString("email"), rs.getString("password"), rs.getString("address"), rs.getString("phone"));
             }
-            return null;
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
         }
+        return null;
+    }
+
+    @Override
+    public int getUserIdByEmail(String email) {
+        User user = getUserByEmail(email);
+        return (user != null) ? user.getId() : -1;
+    }
+
+    @Override
+    public String getUserRoleById(int userId) {
+        try (Connection conn = db.getConnection()) {
+            String sql = "SELECT role FROM users WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getString("role");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
+        return "USER"; // Default role if not found
+    }
 }
-
-
-
