@@ -1,6 +1,10 @@
 package management;
 
 import controllers.interfaces.*;
+import strategies.CashPayment;
+import strategies.CreditCardPayment;
+import strategies.PayPalPayment;
+import strategies.PaymentContext;
 
 import java.util.Scanner;
 
@@ -62,7 +66,7 @@ public class MyApplication {
             System.out.println(" Invalid email format!");
             return;
         }
-        System.out.print("Enter user password: ");
+        System.out.print("EEnter password (Password must be at least 8 characters, include letters and numbers): ");
         String password = scanner.nextLine();
         if (!Validator.isValidPassword(password)) {
             System.out.println(" Password must be at least 8 characters, include letters and numbers.");
@@ -201,6 +205,32 @@ public class MyApplication {
             return;
         }
 
+        // Choose payment method
+        System.out.println("Choose payment method:");
+        System.out.println("1. Cash");
+        System.out.println("2. Credit Card");
+        System.out.println("3. PayPal");
+        System.out.print("Enter option: ");
+        int paymentChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        PaymentContext paymentContext = new PaymentContext();
+
+        switch (paymentChoice) {
+            case 1:
+                paymentContext.setPaymentStrategy(new CashPayment());
+                break;
+            case 2:
+                paymentContext.setPaymentStrategy(new CreditCardPayment());
+                break;
+            case 3:
+                paymentContext.setPaymentStrategy(new PayPalPayment());
+                break;
+            default:
+                System.out.println("Invalid choice! Order canceled.");
+                return;
+        }
+
         System.out.print("Confirm purchase (yes/no): ");
         String confirm = scanner.nextLine();
         if (!confirm.equalsIgnoreCase("yes")) {
@@ -208,8 +238,12 @@ public class MyApplication {
             return;
         }
 
+        // Create the order
         String response = orderController.createOrder(currentUserId, "2025-02-08 08:20:00", "Pending", devicePrice);
         System.out.println(response);
+
+        // Execute the selected payment method
+        paymentContext.executePayment(devicePrice);
 
         System.out.println(" Purchase successful! Thank you.");
     }
