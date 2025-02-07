@@ -23,7 +23,7 @@ public class OrderRepository implements IOrderRepository {
              )) {
 
             st.setInt(1, order.getUserId());
-            st.setTimestamp(2, order.getOrderDate());
+            st.setString(2,order.getOrderDate());
             st.setString(3, order.getStatus());
             st.setDouble(4, order.getTotalPrice());
             st.execute();
@@ -46,7 +46,7 @@ public class OrderRepository implements IOrderRepository {
                 return new Order(
                         rs.getInt("id"),
                         rs.getInt("user_id"),
-                        rs.getTimestamp("order_date"),
+                        rs.getString("order_date"),
                         rs.getString("status"),
                         rs.getDouble("total_price") // Added total_price
                 );
@@ -69,7 +69,7 @@ public class OrderRepository implements IOrderRepository {
                 orders.add(new Order(
                         rs.getInt("id"),
                         rs.getInt("user_id"),
-                        rs.getTimestamp("order_date"),
+                        rs.getString("order_date"),
                         rs.getString("status"),
                         rs.getDouble("total_price") // Added total_price
                 ));

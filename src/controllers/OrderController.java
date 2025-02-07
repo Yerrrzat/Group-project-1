@@ -13,9 +13,11 @@ public class OrderController implements IOrderController {
         this.orderRepository = orderRepository;
     }
 
+
+
     @Override
-    public String createOrder(int userId, String status) {
-        Order order = new Order(userId, status);
+    public String createOrder(int user_id, String order_date, String status, double total_price) {
+        Order order = new Order(user_id, order_date, status, total_price);
         boolean created = orderRepository.createOrder(order);
         return created ? "Order created successfully" : "Order creation failed";
     }

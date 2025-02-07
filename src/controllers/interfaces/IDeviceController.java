@@ -8,4 +8,5 @@ public interface IDeviceController {
     String getAllDevices();
 
 
+    double getDevicePriceById(int deviceId);
 }
