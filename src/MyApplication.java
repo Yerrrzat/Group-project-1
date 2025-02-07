@@ -244,9 +244,9 @@ public class MyApplication {
             System.out.println("4. Get device by ID");
             System.out.println("5. Get all reviews");
             System.out.println("6. Get all orders");
-            System.out.println("7. Get full order description");
-            System.out.println("8. Delete user");
-            System.out.println("9. Upgrade user info");
+            System.out.println("7. Delete user");
+            System.out.println("8. Upgrade user info");
+            System.out.println("9. Get full order description");
             System.out.println("0. Exit");
             System.out.print("Enter option: ");
             int option = scanner.nextInt();
