@@ -1,4 +1,8 @@
 import controllers.interfaces.*;
+import strategies.CashPayment;
+import strategies.CreditCardPayment;
+import strategies.PayPalPayment;
+import strategies.PaymentContext;
 
 import java.util.Scanner;
 
@@ -167,7 +171,7 @@ public class MyApplication {
 
     private void makeOrder() {
         if (currentUserId == -1) {
-            System.out.println("You must be logged in to place an order.");
+            System.out.println(" You must be logged in to place an order.");
             return;
         }
 
@@ -176,26 +180,44 @@ public class MyApplication {
         scanner.nextLine();
         double devicePrice = deviceController.getDevicePriceById(deviceId);
         if (devicePrice == -1) {
-            System.out.println("Invalid device ID. Please try again.");
+            System.out.println(" Invalid device ID. Please try again.");
             return;
         }
 
-        System.out.print("Confirm purchase (yes/no): ");
-        String confirm = scanner.nextLine();
+        System.out.println("\nSelect payment method:");
+        System.out.println("1. Credit Card");
+        System.out.println("2. PayPal");
+        System.out.println("3. Cash");
+        System.out.print("Enter option: ");
 
-        if (confirm.equalsIgnoreCase("yes")) {
-            String response = orderController.createOrder(currentUserId, "2025-02-08 08:20:00", "Pending", devicePrice);
-            System.out.println(response);
+        int choice = scanner.nextInt();
+        scanner.nextLine();
 
-            System.out.println("Purchase successful! Thank you.");
-            System.out.print("Would you like to leave a review? (yes/no): ");
-            if (scanner.nextLine().equalsIgnoreCase("yes")) {
-                createReviewMenu();
-            }
-        } else {
-            System.out.println("Purchase canceled.");
+        PaymentContext paymentContext = new PaymentContext();
+
+        switch (choice) {
+            case 1: paymentContext.setPaymentStrategy(new CreditCardPayment()); break;
+            case 2: paymentContext.setPaymentStrategy(new PayPalPayment()); break;
+            case 3: paymentContext.setPaymentStrategy(new CashPayment()); break;
+            default:
+                System.out.println(" Invalid payment method. Order canceled.");
+                return;
+        }
+
+        // Process the payment
+        paymentContext.executePayment(devicePrice);
+
+        // Proceed with order creation
+        String response = orderController.createOrder(currentUserId, "2025-02-08 08:20:00", "Pending", devicePrice);
+        System.out.println(response);
+
+        System.out.println("✅ Purchase successful! Thank you.");
+        System.out.print("Would you like to leave a review? (yes/no): ");
+        if (scanner.nextLine().equalsIgnoreCase("yes")) {
+            createReviewMenu();
         }
     }
+
     private void deleteUserMenu() {
         System.out.print("Enter user ID to delete: ");
         int id = scanner.nextInt();
@@ -245,7 +267,7 @@ public class MyApplication {
             System.out.println("5. Get all reviews");
             System.out.println("6. Get all orders");
             System.out.println("7. Delete user");
-            System.out.println("8. Upgrade user info");
+            System.out.println("8. Upgrade user information");
             System.out.println("9. Get full order description");
             System.out.println("0. Exit");
             System.out.print("Enter option: ");
