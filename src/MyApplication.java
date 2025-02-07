@@ -57,13 +57,13 @@ public class MyApplication {
         System.out.print("Enter user email: ");
         String email = scanner.nextLine();
         if (!Validator.isValidEmail(email)) {
-            System.out.println("❌ Invalid email format!");
+            System.out.println(" Invalid email format!");
             return;
         }
         System.out.print("Enter user password: ");
         String password = scanner.nextLine();
         if (!Validator.isValidPassword(password)) {
-            System.out.println("❌ Password must be at least 8 characters, include letters and numbers.");
+            System.out.println(" Password must be at least 8 characters, include letters and numbers.");
             return;
         }
         System.out.print("Enter user address: ");
@@ -87,25 +87,25 @@ public class MyApplication {
             System.out.print("Enter email: ");
             String email = scanner.nextLine();
             if (!Validator.isValidEmail(email)) {
-                System.out.println("❌ Invalid email format!");
+                System.out.println(" Invalid email format!");
                 return;
             }
 
-            System.out.print("Enter password: ");
+            System.out.print("Enter password (Password must be at least 8 characters, include letters and numbers): ");
             String password = scanner.nextLine();
             if (!Validator.isValidPassword(password)) {
-                System.out.println("❌ Invalid password!");
+                System.out.println(" Invalid password!");
                 return;
             }
 
             int userId = userController.getUserIdByEmail(email);
             if (userId == -1 || !userController.validateUser(email, password)) {
-                System.out.println("❌ Invalid credentials!");
+                System.out.println(" Invalid credentials!");
                 return;
             }
 
             currentUserId = userId;
-            System.out.println("✅ Login successful! Your user ID: " + currentUserId);
+            System.out.println(" Login successful! Your user ID: " + currentUserId);
             userPurchaseMenu();
         }
     }
@@ -181,35 +181,35 @@ public class MyApplication {
 
     private void makeOrder() {
         if (currentUserId == -1) {
-            System.out.println("❌ You must be logged in to place an order.");
+            System.out.println(" You must be logged in to place an order.");
             return;
         }
 
         System.out.print("Enter device ID to purchase: ");
         String input = scanner.nextLine();
         if (!Validator.isValidInteger(input)) {
-            System.out.println("❌ Invalid input! Device ID must be a number.");
+            System.out.println("Invalid input! Device ID must be a number.");
             return;
         }
 
         int deviceId = Integer.parseInt(input);
         double devicePrice = deviceController.getDevicePriceById(deviceId);
         if (devicePrice == -1) {
-            System.out.println("❌ Invalid device ID. Please try again.");
+            System.out.println("Invalid device ID. Please try again.");
             return;
         }
 
         System.out.print("Confirm purchase (yes/no): ");
         String confirm = scanner.nextLine();
         if (!confirm.equalsIgnoreCase("yes")) {
-            System.out.println("❌ Purchase canceled.");
+            System.out.println(" Purchase canceled.");
             return;
         }
 
         String response = orderController.createOrder(currentUserId, "2025-02-08 08:20:00", "Pending", devicePrice);
         System.out.println(response);
 
-        System.out.println("✅ Purchase successful! Thank you.");
+        System.out.println(" Purchase successful! Thank you.");
     }
 
 
