@@ -1,8 +1,4 @@
 import controllers.interfaces.*;
-import strategies.CashPayment;
-import strategies.CreditCardPayment;
-import strategies.PayPalPayment;
-import strategies.PaymentContext;
 
 import java.util.Scanner;
 
@@ -54,17 +50,25 @@ public class MyApplication {
     }
 
     private void createUserMenu() {
-        System.out.println("Enter user name: ");
+        System.out.print("Enter user name: ");
         String name = scanner.nextLine();
-        System.out.println("Enter user surname: ");
+        System.out.print("Enter user surname: ");
         String surname = scanner.nextLine();
-        System.out.println("Enter user email: ");
+        System.out.print("Enter user email: ");
         String email = scanner.nextLine();
-        System.out.println("Enter user password: ");
+        if (!Validator.isValidEmail(email)) {
+            System.out.println("❌ Invalid email format!");
+            return;
+        }
+        System.out.print("Enter user password: ");
         String password = scanner.nextLine();
-        System.out.println("Enter user address: ");
+        if (!Validator.isValidPassword(password)) {
+            System.out.println("❌ Password must be at least 8 characters, include letters and numbers.");
+            return;
+        }
+        System.out.print("Enter user address: ");
         String address = scanner.nextLine();
-        System.out.println("Enter user phone number: ");
+        System.out.print("Enter user phone number: ");
         String phone = scanner.nextLine();
 
         String response = userController.createUser(name, surname, email, password, address, phone);
@@ -82,20 +86,26 @@ public class MyApplication {
         } else if (choice == 2) {
             System.out.print("Enter email: ");
             String email = scanner.nextLine();
+            if (!Validator.isValidEmail(email)) {
+                System.out.println("❌ Invalid email format!");
+                return;
+            }
+
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
+            if (!Validator.isValidPassword(password)) {
+                System.out.println("❌ Invalid password!");
+                return;
+            }
 
             int userId = userController.getUserIdByEmail(email);
             if (userId == -1 || !userController.validateUser(email, password)) {
-                System.out.println("Invalid credentials!");
+                System.out.println("❌ Invalid credentials!");
                 return;
             }
 
             currentUserId = userId;
-
-
-            System.out.println("Login successful! Your user ID: " + currentUserId);
-
+            System.out.println("✅ Login successful! Your user ID: " + currentUserId);
             userPurchaseMenu();
         }
     }
@@ -171,52 +181,38 @@ public class MyApplication {
 
     private void makeOrder() {
         if (currentUserId == -1) {
-            System.out.println(" You must be logged in to place an order.");
+            System.out.println("❌ You must be logged in to place an order.");
             return;
         }
 
         System.out.print("Enter device ID to purchase: ");
-        int deviceId = scanner.nextInt();
-        scanner.nextLine();
-        double devicePrice = deviceController.getDevicePriceById(deviceId);
-        if (devicePrice == -1) {
-            System.out.println(" Invalid device ID. Please try again.");
+        String input = scanner.nextLine();
+        if (!Validator.isValidInteger(input)) {
+            System.out.println("❌ Invalid input! Device ID must be a number.");
             return;
         }
 
-        System.out.println("\nSelect payment method:");
-        System.out.println("1. Credit Card");
-        System.out.println("2. PayPal");
-        System.out.println("3. Cash");
-        System.out.print("Enter option: ");
-
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-
-        PaymentContext paymentContext = new PaymentContext();
-
-        switch (choice) {
-            case 1: paymentContext.setPaymentStrategy(new CreditCardPayment()); break;
-            case 2: paymentContext.setPaymentStrategy(new PayPalPayment()); break;
-            case 3: paymentContext.setPaymentStrategy(new CashPayment()); break;
-            default:
-                System.out.println(" Invalid payment method. Order canceled.");
-                return;
+        int deviceId = Integer.parseInt(input);
+        double devicePrice = deviceController.getDevicePriceById(deviceId);
+        if (devicePrice == -1) {
+            System.out.println("❌ Invalid device ID. Please try again.");
+            return;
         }
 
-        // Process the payment
-        paymentContext.executePayment(devicePrice);
+        System.out.print("Confirm purchase (yes/no): ");
+        String confirm = scanner.nextLine();
+        if (!confirm.equalsIgnoreCase("yes")) {
+            System.out.println("❌ Purchase canceled.");
+            return;
+        }
 
-        // Proceed with order creation
         String response = orderController.createOrder(currentUserId, "2025-02-08 08:20:00", "Pending", devicePrice);
         System.out.println(response);
 
         System.out.println("✅ Purchase successful! Thank you.");
-        System.out.print("Would you like to leave a review? (yes/no): ");
-        if (scanner.nextLine().equalsIgnoreCase("yes")) {
-            createReviewMenu();
-        }
     }
+
+
 
     private void deleteUserMenu() {
         System.out.print("Enter user ID to delete: ");
@@ -224,6 +220,8 @@ public class MyApplication {
         scanner.nextLine();
         System.out.println(userController.deleteUser(id));
     }
+
+
 
     private void updateUserMenu() {
         System.out.print("Enter user ID: ");
@@ -267,7 +265,7 @@ public class MyApplication {
             System.out.println("5. Get all reviews");
             System.out.println("6. Get all orders");
             System.out.println("7. Delete user");
-            System.out.println("8. Upgrade user information");
+            System.out.println("8. Upgrade user info");
             System.out.println("9. Get full order description");
             System.out.println("0. Exit");
             System.out.print("Enter option: ");
@@ -289,5 +287,4 @@ public class MyApplication {
         }
     }
 }
-
 
