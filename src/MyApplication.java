@@ -13,8 +13,8 @@ public class MyApplication {
     private final Scanner scanner = new Scanner(System.in);
 
     private static final String EMPLOYEE_PASSWORD = "0123456789";
-    private int currentUserId = -1; // Store logged-in user ID
-    private String currentUserRole = null; // Store user role
+    private int currentUserId = -1;
+
 
     public MyApplication(IUserController userController, IDeviceController deviceController, IBrandController brandController,
                          ICategoryController categoryController, IOrderController orderController, IOrderItemController orderItemController, IReviewController reviewController) {
@@ -88,7 +88,7 @@ public class MyApplication {
             }
 
             currentUserId = userId;
-            currentUserRole = userController.getUserRoleById(userId);
+
 
             System.out.println("Login successful! Your user ID: " + currentUserId);
 
@@ -214,6 +214,15 @@ public class MyApplication {
         System.out.println(userController.updateUser(id, name, surname));
     }
 
+
+
+    private void getFullOrderDescriptionMenu() {
+        System.out.print("Enter Order ID: ");
+        int orderId = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println(orderController.getFullOrderDescription(orderId));
+    }
+
     private void employeeSection() {
         System.out.print("Enter company password: ");
         String password = scanner.nextLine();
@@ -230,22 +239,17 @@ public class MyApplication {
             System.out.println("4. Get device by ID");
             System.out.println("5. Get all reviews");
             System.out.println("6. Get all orders");
-            System.out.println("7. Delete user");
-            System.out.println("8. Upgrade user info");
+            System.out.println("7. Get full order description");
+            System.out.println("8. Delete user");
+            System.out.println("9. Upgrade user info");
             System.out.println("0. Exit");
             System.out.print("Enter option: ");
             int option = scanner.nextInt();
             scanner.nextLine();
 
             switch (option) {
-                case 1: System.out.println(userController.getAllUsers()); break;
-                case 2: getUserByIdMenu(); break;
-                case 3: System.out.println(deviceController.getAllDevices()); break;
-                case 4: getDeviceByIdMenu(); break;
-                case 5: System.out.println(reviewController.getAllReviews()); break;
                 case 6: System.out.println(orderController.getAllOrders()); break;
-                case 7: deleteUserMenu(); break;
-                case 8: updateUserMenu(); break;
+                case 7: getFullOrderDescriptionMenu(); break;
                 case 0: return;
             }
         }
