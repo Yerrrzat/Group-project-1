@@ -1,5 +1,5 @@
 Our Entire project for OOP SE-2408 Group Name:The Algorithm Avengers
-# 📱 Device Store Management System - "The Algorithm Avengers"
+# 📱 Device Store management System - "The Algorithm Avengers"
 
 ## 📌 What is this Application?
 This is a **Java-based console application** that allows users to **buy electronic devices** and lets employees **manage orders, users, and devices**. It has features like **user authentication, order management, product browsing, and reviews.**
@@ -35,7 +35,7 @@ This is a **Java-based console application** that allows users to **buy electron
    ```sql
    CREATE DATABASE device_store;
 ## 🎮 How to Use the Application
-Main Menu
+management.Main Menu
 markdown
 Копировать
 Редактировать

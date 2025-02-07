@@ -1,3 +1,5 @@
+package management;
+
 import controllers.*;
 import controllers.interfaces.*;
 import data.PostgresDB;

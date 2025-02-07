@@ -1,3 +1,5 @@
+package management;
+
 import controllers.interfaces.*;
 
 import java.util.Scanner;

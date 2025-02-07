@@ -1,3 +1,5 @@
+package management;
+
 public class Validator {
     public static boolean isValidEmail(String email) {
 
