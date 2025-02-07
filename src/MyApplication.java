@@ -222,6 +222,11 @@ public class MyApplication {
         scanner.nextLine();
         System.out.println(orderController.getFullOrderDescription(orderId));
     }
+    private void getAllUsersMenu() {
+        String response = userController.getAllUsers();
+        System.out.println(response);
+    }
+
 
     private void employeeSection() {
         System.out.print("Enter company password: ");
@@ -248,8 +253,15 @@ public class MyApplication {
             scanner.nextLine();
 
             switch (option) {
+                case 1: System.out.println(userController.getAllUsers()); break;
+                case 2: getUserByIdMenu(); break;
+                case 3: System.out.println(deviceController.getAllDevices()); break;
+                case 4: getDeviceByIdMenu(); break;
+                case 5: System.out.println(reviewController.getAllReviews()); break;
                 case 6: System.out.println(orderController.getAllOrders()); break;
-                case 7: getFullOrderDescriptionMenu(); break;
+                case 7: deleteUserMenu(); break;
+                case 8: updateUserMenu(); break;
+                case 9: getFullOrderDescriptionMenu(); break;
                 case 0: return;
             }
         }
