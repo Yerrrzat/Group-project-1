@@ -8,6 +8,7 @@ import java.util.List;
 
 public class UserController implements IUserController {
     private final IUserRepository repo;
+
     public UserController(IUserRepository repo) {
         this.repo = repo;
     }
@@ -63,9 +64,13 @@ public class UserController implements IUserController {
     }
 
     @Override
-    public User getUserByEmail(String email) {
-        return repo.getUserByEmail(email);
+    public int getUserIdByEmail(String email) {
+        User user = repo.getUserByEmail(email);
+        return (user != null) ? user.getId() : -1;
     }
 
-
+    @Override
+    public String getUserRoleById(int userId) {
+        return repo.getUserRoleById(userId);
+    }
 }

@@ -13,6 +13,8 @@ public class MyApplication {
     private final Scanner scanner = new Scanner(System.in);
 
     private static final String EMPLOYEE_PASSWORD = "0123456789";
+    private int currentUserId = -1; // Store logged-in user ID
+    private String currentUserRole = null; // Store user role
 
     public MyApplication(IUserController userController, IDeviceController deviceController, IBrandController brandController,
                          ICategoryController categoryController, IOrderController orderController, IOrderItemController orderItemController, IReviewController reviewController) {
@@ -46,6 +48,7 @@ public class MyApplication {
         System.out.println("0. Exit");
         System.out.print("Enter option: ");
     }
+
     private void createUserMenu() {
         System.out.println("Enter user name: ");
         String name = scanner.nextLine();
@@ -64,7 +67,6 @@ public class MyApplication {
         System.out.println(response);
     }
 
-
     private void userSection() {
         System.out.println("\n1. Create Account");
         System.out.println("2. Log In");
@@ -79,17 +81,27 @@ public class MyApplication {
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
 
-            if (userController.validateUser(email, password)) {
-                System.out.println("Login successful!");
-                userPurchaseMenu();
-            } else {
+            int userId = userController.getUserIdByEmail(email);
+            if (userId == -1 || !userController.validateUser(email, password)) {
                 System.out.println("Invalid credentials!");
+                return;
             }
+
+            currentUserId = userId;
+            currentUserRole = userController.getUserRoleById(userId);
+
+            System.out.println("Login successful! Your user ID: " + currentUserId);
+
+            userPurchaseMenu();
         }
     }
+
     private void createReviewMenu() {
-        System.out.println("Enter user id : ");
-        int user_id = Integer.parseInt(scanner.nextLine());
+        if (currentUserId == -1) {
+            System.out.println("You must be logged in to leave a review.");
+            return;
+        }
+
         System.out.println("Enter device id : ");
         int device_id = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter rating (1-5): ");
@@ -97,13 +109,16 @@ public class MyApplication {
         System.out.println("Share with comments: ");
         String comment = scanner.nextLine();
 
-
-        String response = reviewController.createReview(user_id,device_id, rating,comment);
-
+        String response = reviewController.createReview(currentUserId, device_id, rating, comment);
         System.out.println(response);
     }
 
     private void userPurchaseMenu() {
+        if (currentUserId == -1) {
+            System.out.println("You must be logged in to access this menu.");
+            return;
+        }
+
         while (true) {
             System.out.println("\n1. See all categories");
             System.out.println("2. See all brands");
@@ -135,35 +150,6 @@ public class MyApplication {
             }
         }
     }
-
-    private void makeOrder() {
-        System.out.print("Enter device ID to purchase: ");
-        int deviceId = scanner.nextInt();
-        scanner.nextLine();
-        double devicePrice = deviceController.getDevicePriceById(deviceId);
-        if (devicePrice == -1) {
-            System.out.println("Invalid device ID. Please try again.");
-            return;
-        }
-
-        System.out.print("Confirm purchase (yes/no): ");
-        String confirm = scanner.nextLine();
-
-        if (confirm.equalsIgnoreCase("yes")) {
-            String response = orderController.createOrder(1, "2025-02-08 08:20:00", "Pending", devicePrice);
-            System.out.println(response);
-
-            System.out.println("Purchase successful! Thank you.");
-            System.out.print("Would you like to leave a review? (yes/no): ");
-            if (scanner.nextLine().equalsIgnoreCase("yes")) {
-                createReviewMenu();
-            }
-        } else {
-            System.out.println("Purchase canceled.");
-        }
-    }
-
-
     private void getDeviceByIdMenu() {
         System.out.println("Enter device id: ");
         int id = scanner.nextInt();
@@ -179,8 +165,54 @@ public class MyApplication {
         System.out.println(response);
     }
 
+    private void makeOrder() {
+        if (currentUserId == -1) {
+            System.out.println("You must be logged in to place an order.");
+            return;
+        }
 
+        System.out.print("Enter device ID to purchase: ");
+        int deviceId = scanner.nextInt();
+        scanner.nextLine();
+        double devicePrice = deviceController.getDevicePriceById(deviceId);
+        if (devicePrice == -1) {
+            System.out.println("Invalid device ID. Please try again.");
+            return;
+        }
 
+        System.out.print("Confirm purchase (yes/no): ");
+        String confirm = scanner.nextLine();
+
+        if (confirm.equalsIgnoreCase("yes")) {
+            String response = orderController.createOrder(currentUserId, "2025-02-08 08:20:00", "Pending", devicePrice);
+            System.out.println(response);
+
+            System.out.println("Purchase successful! Thank you.");
+            System.out.print("Would you like to leave a review? (yes/no): ");
+            if (scanner.nextLine().equalsIgnoreCase("yes")) {
+                createReviewMenu();
+            }
+        } else {
+            System.out.println("Purchase canceled.");
+        }
+    }
+    private void deleteUserMenu() {
+        System.out.print("Enter user ID to delete: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println(userController.deleteUser(id));
+    }
+
+    private void updateUserMenu() {
+        System.out.print("Enter user ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter new name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter new surname: ");
+        String surname = scanner.nextLine();
+        System.out.println(userController.updateUser(id, name, surname));
+    }
 
     private void employeeSection() {
         System.out.print("Enter company password: ");
@@ -218,22 +250,6 @@ public class MyApplication {
             }
         }
     }
-
-    private void deleteUserMenu() {
-        System.out.print("Enter user ID to delete: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println(userController.deleteUser(id));
-    }
-
-    private void updateUserMenu() {
-        System.out.print("Enter user ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Enter new name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter new surname: ");
-        String surname = scanner.nextLine();
-        System.out.println(userController.updateUser(id, name, surname));
-    }
 }
+
+
