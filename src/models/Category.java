@@ -42,7 +42,6 @@ public class Category {
         this.description = description;
     }
 
-    // toString method
     @Override
     public String toString() {
         return "Category{" +
