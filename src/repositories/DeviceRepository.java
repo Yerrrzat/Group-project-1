@@ -115,7 +115,7 @@ public class DeviceRepository implements IDeviceRepository {
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
-        return -1; // Return -1 if device is not found
+        return -1;
     }
 
 }

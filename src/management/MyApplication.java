@@ -66,7 +66,7 @@ public class MyApplication {
             System.out.println(" Invalid email format!");
             return;
         }
-        System.out.print("EEnter password (Password must be at least 8 characters, include letters and numbers): ");
+        System.out.print("Enter password (Password must be at least 8 characters, include letters and numbers): ");
         String password = scanner.nextLine();
         if (!Validator.isValidPassword(password)) {
             System.out.println(" Password must be at least 8 characters, include letters and numbers.");
@@ -205,7 +205,6 @@ public class MyApplication {
             return;
         }
 
-        // Choose payment method
         System.out.println("Choose payment method:");
         System.out.println("1. Cash");
         System.out.println("2. Credit Card");
@@ -238,11 +237,9 @@ public class MyApplication {
             return;
         }
 
-        // Create the order
         String response = orderController.createOrder(currentUserId, "2025-02-08 08:20:00", "Pending", devicePrice);
         System.out.println(response);
 
-        // Execute the selected payment method
         paymentContext.executePayment(devicePrice);
 
         System.out.println(" Purchase successful! Thank you.");
