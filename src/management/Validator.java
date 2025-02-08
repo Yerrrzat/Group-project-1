@@ -16,7 +16,4 @@ public class Validator {
         return str.matches("\\d+");
     }
 
-    public static boolean isValidDouble(String priceInput) {
-        return priceInput.matches("\\d+\\.\\d+");
-    }
 }
