@@ -7,9 +7,9 @@ import data.interfaces.IDB;
 import repositories.*;
 import repositories.interfaces.*;
 
-public class    Main {
-    public static <MyApplication> void main(String[] args) throws InterruptedException {
-        IDB db = new PostgresDB("jdbc:postgresql://localhost:5432","postgres","Qalzatov8745","db");
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        IDB db = new PostgresDB("jdbc:postgresql://localhost:5432/db", "postgres", "Qalzatov8745");
 
         IUserRepository repo = new UserRepository(db);
         IUserController controller = new UserController(repo);
@@ -29,15 +29,13 @@ public class    Main {
         IOrderItemRepository orderItemRepo = new OrderItemRepository(db);
         IOrderItemController controllerOrderItem = new OrderItemController(orderItemRepo);
 
-
         IReviewRepository reviewRepo = new ReviewRepository(db);
         IReviewController reviewController = new ReviewController(reviewRepo);
 
+        MyApplication app = new MyApplication(controller, controllerDevice, controllerBrand, controllerCategory, controllerOrder, controllerOrderItem, reviewController);
 
-        MyApplication app;
-        app = new MyApplication(controller, controllerDevice, controllerBrand, controllerCategory, controllerOrder, controllerOrderItem, reviewController);
+        app.start();
 
-        app.wait();
         db.close();
     }
 }
