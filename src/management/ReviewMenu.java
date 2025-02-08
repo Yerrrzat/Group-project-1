@@ -8,7 +8,7 @@ public class ReviewMenu {
     private final Scanner scanner;
     private int currentUserId;
 
-    public ReviewMenu(IReviewController reviewController, Scanner scanner, int currentUserId) {
+    public ReviewMenu(IReviewController reviewController, Scanner scanner, int i) {
         this.reviewController = reviewController;
         this.scanner = scanner;
         this.currentUserId = currentUserId;

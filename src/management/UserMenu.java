@@ -1,5 +1,6 @@
 package management;
 
+import controllers.interfaces.IOrderController;
 import controllers.interfaces.IUserController;
 import java.util.Scanner;
 
@@ -11,6 +12,12 @@ public class UserMenu {
     public UserMenu(IUserController userController, Scanner scanner) {
         this.userController = userController;
         this.scanner = scanner;
+    }
+
+    public UserMenu(Scanner scanner, IUserController userController, IOrderController orderController, IUserController userController1, Scanner scanner1) {
+
+        this.userController = userController1;
+        this.scanner = scanner1;
     }
 
     public void showMenu() {

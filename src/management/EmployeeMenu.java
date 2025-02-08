@@ -1,5 +1,4 @@
 package management;
-
 import java.util.Scanner;
 import controllers.interfaces.*;
 
@@ -20,14 +19,17 @@ public class EmployeeMenu {
         this.scanner = scanner;
     }
 
-    public void startEmployeeSection() {
+    public void showMenu() {
         System.out.print("Enter company password: ");
         String password = scanner.nextLine();
         if (!password.equals(EMPLOYEE_PASSWORD)) {
             System.out.println("Incorrect password.");
             return;
         }
+        startEmployeeSection();
+    }
 
+    private void startEmployeeSection() {
         while (true) {
             System.out.println("\nEmployee Panel");
             System.out.println("1. Get all users");
@@ -41,6 +43,7 @@ public class EmployeeMenu {
             System.out.println("9. Get full order description");
             System.out.println("0. Exit");
             System.out.print("Enter option: ");
+
             int option = scanner.nextInt();
             scanner.nextLine();
 
@@ -54,9 +57,7 @@ public class EmployeeMenu {
                 case 7 -> deleteUserMenu();
                 case 8 -> updateUserMenu();
                 case 9 -> getFullOrderDescriptionMenu();
-                case 0 -> {
-                    return;
-                }
+                case 0 -> { return; }
                 default -> System.out.println("Invalid option. Try again.");
             }
         }
