@@ -1,40 +1,40 @@
 Our Entire project for OOP SE-2408 Group Name:The Algorithm Avengers
-# 📱 Device Store management System - "The Algorithm Avengers"
+# Device Store management System - "The Algorithm Avengers"
 
-## 📌 What is this Application?
+##  What is this Application?
 This is a **Java-based console application** that allows users to **buy electronic devices** and lets employees **manage orders, users, and devices**. It has features like **user authentication, order management, product browsing, and reviews.**
 
 ---
 
-## **🚀 Features of the Application**
+## **Features of the Application**
 ### **For Users (Customers)**
-✔ **Create an account** to start shopping  
-✔ **Log in** using email and password  
-✔ **Browse products** (Categories, Brands, Devices)  
-✔ **Place an order** by selecting a device  
-✔ **Write a review** after purchasing a product
+**Create an account** to start shopping  
+**Log in** using email and password  
+**Browse products** (Categories, Brands, Devices)  
+**Place an order** by selecting a device  
+**Write a review** after purchasing a product
 
 ### **For Employees (Admins)**
-✔ **Login with a secret password**  
-✔ **Manage users** (View, delete, update users)  
-✔ **Manage devices** (View all available devices)  
-✔ **View all orders** and **full order details**  
-✔ **View all reviews** written by customers
+**Login with a secret password**  
+**Manage users** (View, delete, update users)  
+**Manage devices** (View all available devices)  
+**View all orders** and **full order details**  
+**View all reviews** written by customers
 
 ---
 
-## **📥 How to Set Up and Run the Application**
-### **1️⃣ Prerequisites**
+## **How to Set Up and Run the Application**
+### **1️ Prerequisites**
 - **Java Development Kit (JDK) 11+**
 - **PostgreSQL Database**
 - **JDBC Driver for PostgreSQL**
 - **A Java IDE** (Eclipse, IntelliJ, VS Code) or Terminal
 
-### **2️⃣ Setting Up the Database**
+### **2 Setting Up the Database**
 1. Open **PostgreSQL** and create a new database:
    ```sql
    CREATE DATABASE device_store;
-## 🎮 How to Use the Application
+## How to Use the Application
 management.Main Menu
 markdown
 Копировать
@@ -97,31 +97,31 @@ Order Items:
   Name: AirPods Pro 2
   Quantity: 1
   Price: 249.99
-  ## 💡 Technologies Used
+  ## Technologies Used
   Java 11+
   PostgreSQL
   JDBC
   Object-Oriented Programming (OOP)
   Design Patterns: Singleton, Factory, Strategy
   Lambda Expressions for Sorting and Filtering
-  🔹 Key Features in Code
+  Key Features in Code
   ## 1. Data Validation
    Checks email format and password strength before creating users.
    Ensures correct input for IDs and numerical values.
    Prevents invalid operations (e.g., placing an order with an invalid ID).
   ## 2. Design Patterns Used:
 
-**✔ Singleton Pattern → Used in DatabaseConnection for database access.**
+**Singleton Pattern → Used in DatabaseConnection for database access.**
 
-**✔Factory Pattern → Used for creating different types of users.**
+**Factory Pattern → Used for creating different types of users.**
 
-**✔ Strategy Pattern → Used for dynamic selection of payment methods.**
+**Strategy Pattern → Used for dynamic selection of payment methods.**
 
-## 🚀 Future Improvements
+## Future Improvements
 Implement order history for users.
 Add admin features for adding/removing devices.
 Integrate payment gateway for real transactions.
-## 👨‍💻 Authors
+## Authors
 **-Kundyz**
 
 **-Daniyar**
