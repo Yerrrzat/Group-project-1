@@ -1,7 +1,7 @@
 In the group project, my main task was to create and implement two important classes: Brand and Category, along with their
 corresponding repositories and controllers, including BrandRepository, CategoryRepository, BrandController, and CategoryController.
 I was also responsible for linking these classes to the relevant database tables, which were initially set up by Kundyz.
-To ensure smooth integration throughout the application, I connected these classes to the MyApplication and Main classes.
+To ensure smooth integration throughout the application, I connected these classes to the management.MyApplication and management.Main classes.
 Additionally, I was involved in debugging the code to fix issues and ensure everything ran smoothly. Lastly, to prevent any conflicts during runtime,
 I dropped and recreated all the database tables, ensuring that all team members were working with the same database structure for consistency across the project.
 
@@ -34,9 +34,9 @@ Repository: In the context of the project, a repository is a class or interface 
 
 Controller: A controller manages user interactions in an MVC-based application, handling input, processing data, and returning results. It links the user interface with the underlying application logic and database operations.
 
-MyApplication: The main application class responsible for launching and coordinating the program. It utilizes controllers to handle user input and interact with the model, typically representing the business logic.
+management.MyApplication: The main application class responsible for launching and coordinating the program. It utilizes controllers to handle user input and interact with the model, typically representing the business logic.
 
-Main: The entry point of the application, often containing the main method that starts the application and initiates its components.
+management.Main: The entry point of the application, often containing the main method that starts the application and initiates its components.
 
 Database Table: A structured collection of data in a database, where each table represents a specific entity or category of information, such as users, products, or brands.
 

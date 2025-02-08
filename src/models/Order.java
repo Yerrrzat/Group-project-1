@@ -7,13 +7,11 @@ public class Order {
     private String status;
     private double total_price;
 
-    // Constructor with (id, status)
     public Order(int id, String status) {
         this.id = id;
         this.status = status;
     }
 
-    // Constructor with (userId, orderDate, status, totalPrice)
     public Order(int userId, String orderDate, String status, double totalPrice) {
         this.user_id = userId;
         this.order_date = orderDate;
@@ -21,7 +19,6 @@ public class Order {
         this.total_price = totalPrice;
     }
 
-    // Constructor with (id, userId, orderDate, status, totalPrice)
     public Order(int id, int userId, String orderDate, String status, double totalPrice) {
         this.id = id;
         this.user_id = userId;
@@ -73,7 +70,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "\n Order{" +
                 "id=" + id +
                 ", userId=" + user_id +
                 ", orderDate='" + order_date + '\'' +

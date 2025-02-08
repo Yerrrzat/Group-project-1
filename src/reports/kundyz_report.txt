@@ -65,7 +65,7 @@ Definition:
 In this code, I first create a connection to the database using the PostgresDB class, which implements the IDB interface. I pass the database URL, username, password,
 and database name as parameters to establish the connection. Next, I create a UserRepository object, which implements the IUserRepository interface and is responsible
 for interacting with the users' table in the database by executing SQL queries through the db object. After that, I create a UserController object, which implements the
-IUserController interface and manages the business logic related to users, handling user requests and calling appropriate repository methods. Then, I create a MyApplication
+IUserController interface and manages the business logic related to users, handling user requests and calling appropriate repository methods. Then, I create a management.MyApplication
 object, which serves as the main application class, taking controller as an argument to handle user interactions. I call the start() method to launch the application and
 allow user interaction. Finally, I close the database connection using db.close(), ensuring that there are no resource leaks.
 
@@ -77,10 +77,10 @@ Definitions:
 data operations.
 -JDBC (Java Database Connectivity) is a technology that allows Java applications to interact with databases using SQL.
 -IDB is a database interface that provides flexibility in switching databases without modifying the application logic. PostgresDB is an implementation of the IDB interface that connects to a PostgreSQL database.
--MyApplication is the main class that starts the application and manages user interactions.
+-management.MyApplication is the main class that starts the application and manages user interactions.
 
 6. My Application:
-In this code, I create a MyApplication class that serves as the main interface for interacting with users. It takes an IUserController object as a parameter in the constructor,
+In this code, I create a management.MyApplication class that serves as the main interface for interacting with users. It takes an IUserController object as a parameter in the constructor,
 allowing it to communicate with the user management system. I also create a Scanner object for reading user input from the console.
 The start() method runs an infinite loop that displays the main menu and processes user input. It reads an integer option from the user and calls the corresponding menu
 function. If the user enters an invalid option, the loop exits. I handle incorrect input types with an InputMismatchException, ensuring the program does not crash when
@@ -91,7 +91,7 @@ method calls the getAllUsers() function from userController and prints the list 
 the user's details. The createUserMenu() method prompts the user for various details such as name, surname, email, password, address, and phone number, then sends this
 data to userController.createUser() and prints the response.
 
-This code follows the MVC (Model-View-Controller) pattern, where the MyApplication class represents the View (user interface), the UserController acts as the Controller
+This code follows the MVC (Model-View-Controller) pattern, where the management.MyApplication class represents the View (user interface), the UserController acts as the Controller
 (handling logic), and the UserRepository interacts with the Model (database). This structure keeps the application modular and easy to maintain.
 
 7. Definitions:
@@ -105,7 +105,7 @@ IDB (Database Interface): An interface that defines how the application connects
 
 PostgresDB: A class that implements IDB and connects the application to a PostgreSQL database.
 
-MyApplication: The main class that provides a menu for users to interact with the system and handles user input.
+management.MyApplication: The main class that provides a menu for users to interact with the system and handles user input.
 
 Scanner: A Java class used to read user input from the console.
 
