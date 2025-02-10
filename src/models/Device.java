@@ -11,6 +11,14 @@ public class  Device{
     private String release_date;
     private String specifications;
 
+    private String cameraSpecifacitions;
+    private int batterycapacty;
+    private String cpu;
+    private String gpu;
+    private int ram;
+    private int batteryCapacity;
+    private String cameraSpecifactions;
+
     public Device(){
 
     }
@@ -24,6 +32,12 @@ public class  Device{
         setStock_quantity(stock_quantity);
         setRelease_date(release_date);
         setSpecifications(specifications);
+        setBatteryCapacity(batteryCapacity);
+        setCameraSpecifications(cameraSpecifacitions);
+        setCpu(cpu);
+        setGpu(gpu);
+        setRam(ram);
+        setBatteryCapacity(batteryCapacity);
 
     }
 
@@ -103,6 +117,45 @@ public class  Device{
 
     public void setSpecifications(String specifications) {
         this.specifications = specifications;
+    }
+    public String getCameraSpecifications() {
+        return cameraSpecifacitions;
+    }
+
+    public void setCameraSpecifications(String cameraSpecifications) {
+        this.cameraSpecifactions = cameraSpecifications;
+    }
+
+    public int getBatteryCapacity() {
+        return batteryCapacity;
+    }
+
+    public void setBatteryCapacity(int batteryCapacity) {
+        this.batteryCapacity = batteryCapacity;
+    }
+
+    public String getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(String cpu) {
+        this.cpu = cpu;
+    }
+
+    public String getGpu() {
+        return gpu;
+    }
+
+    public void setGpu(String gpu) {
+        this.gpu = gpu;
+    }
+
+    public int getRam() {
+        return ram;
+    }
+
+    public void setRam(int ram) {
+        this.ram = ram;
     }
 
     @Override

@@ -35,6 +35,7 @@ public class Main {
 
 
 
+
         MyApplication app = new MyApplication(controller, controllerDevice, controllerBrand, controllerCategory, controllerOrder, controllerOrderItem, reviewController);
 
         app.start();
