@@ -1,12 +1,11 @@
 package management;
 
 import controllers.interfaces.*;
-import strategies.CashPayment;
-import strategies.CreditCardPayment;
-import strategies.PayPalPayment;
-import strategies.PaymentContext;
+import strategies.*;
 
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Supplier;
 
 public class MyApplication {
     private final IUserController userController;
@@ -40,9 +39,14 @@ public class MyApplication {
             scanner.nextLine();
 
             switch (option) {
-                case 1: userSection(); break;
-                case 2: employeeSection(); break;
-                default: return;
+                case 1:
+                    userSection();
+                    break;
+                case 2:
+                    employeeSection();
+                    break;
+                default:
+                    return;
             }
         }
     }
@@ -170,6 +174,7 @@ public class MyApplication {
             }
         }
     }
+
     private void getDeviceByIdMenu() {
         System.out.println("Enter device id: ");
         int id = scanner.nextInt();
@@ -177,6 +182,7 @@ public class MyApplication {
         String response = deviceController.getDeviceById(id);
         System.out.println(response);
     }
+
     private void getUserByIdMenu() {
         System.out.println("Enter user id: ");
         int id = scanner.nextInt();
@@ -215,20 +221,16 @@ public class MyApplication {
 
         PaymentContext paymentContext = new PaymentContext();
 
-        switch (paymentChoice) {
-            case 1:
-                paymentContext.setPaymentStrategy(new CashPayment());
-                break;
-            case 2:
-                paymentContext.setPaymentStrategy(new CreditCardPayment());
-                break;
-            case 3:
-                paymentContext.setPaymentStrategy(new PayPalPayment());
-                break;
-            default:
-                System.out.println("Invalid choice! Order canceled.");
-                return;
-        }
+        Map<Integer, Supplier<PaymentStrategy>> paymentStrategies = Map.of(
+                1, CashPayment::new,
+                2, CreditCardPayment::new,
+                3, PayPalPayment::new
+        );
+
+        paymentContext.setPaymentStrategy(paymentStrategies.getOrDefault(paymentChoice, () -> {
+            System.out.println("Invalid choice! Order canceled.");
+            return null;
+        }).get());
 
         System.out.print("Confirm purchase (yes/no): ");
         String confirm = scanner.nextLine();
@@ -246,14 +248,12 @@ public class MyApplication {
     }
 
 
-
     private void deleteUserMenu() {
         System.out.print("Enter user ID to delete: ");
         int id = scanner.nextInt();
         scanner.nextLine();
         System.out.println(userController.deleteUser(id));
     }
-
 
 
     private void updateUserMenu() {
@@ -268,13 +268,13 @@ public class MyApplication {
     }
 
 
-
     private void getFullOrderDescriptionMenu() {
         System.out.print("Enter Order ID: ");
         int orderId = scanner.nextInt();
         scanner.nextLine();
         System.out.println(orderController.getFullOrderDescription(orderId));
     }
+
     private void getAllUsersMenu() {
         String response = userController.getAllUsers();
         System.out.println(response);
@@ -305,19 +305,29 @@ public class MyApplication {
             int option = scanner.nextInt();
             scanner.nextLine();
 
-            switch (option) {
-                case 1: System.out.println(userController.getAllUsers()); break;
-                case 2: getUserByIdMenu(); break;
-                case 3: System.out.println(deviceController.getAllDevices()); break;
-                case 4: getDeviceByIdMenu(); break;
-                case 5: System.out.println(reviewController.getAllReviews()); break;
-                case 6: System.out.println(orderController.getAllOrders()); break;
-                case 7: deleteUserMenu(); break;
-                case 8: updateUserMenu(); break;
-                case 9: getFullOrderDescriptionMenu(); break;
-                case 0: return;
+
+            Map<Integer, Runnable> employeeActions = Map.of(
+                    1, () -> System.out.println(userController.getAllUsers()),
+                    2, this::getUserByIdMenu,
+                    3, () -> System.out.println(deviceController.getAllDevices()),
+                    4, this::getDeviceByIdMenu,
+                    5, () -> System.out.println(reviewController.getAllReviews()),
+                    6, () -> System.out.println(orderController.getAllOrders()),
+                    7, this::deleteUserMenu,
+                    8, this::updateUserMenu,
+                    9, this::getFullOrderDescriptionMenu,
+                    0, () -> {
+                        System.out.println("Exiting Employee Panel...");
+                        return;
+                    } // Case 0: Exit
+            );
+
+
+            employeeActions.getOrDefault(option, () -> System.out.println("Invalid option. Try again.")).run();
+
+            if (option == 0) {
+                return;
             }
         }
     }
 }
-

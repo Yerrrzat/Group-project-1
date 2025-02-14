@@ -32,13 +32,14 @@ public class    DeviceController implements IDeviceController {
     @Override
     public String getAllDevices() {
         List<Device> devices = deviceRepository.getAllDevices();
-        StringBuilder sb = new StringBuilder();
-        for (Device device : devices) {
-            sb.append(device.toString());
 
-        }
-        return sb.toString();
+        return devices.stream()
+                .sorted((d1, d2) -> Double.compare(d1.getPrice(), d2.getPrice())) // Sorting by price
+                .map(Device::toString)
+                .reduce("", (a, b) -> a + b);
     }
+
+
 
     @Override
     public double getDevicePriceById(int deviceId) {
