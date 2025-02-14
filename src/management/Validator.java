@@ -15,4 +15,5 @@ public class Validator {
 
         return str.matches("\\d+");
     }
+
 }

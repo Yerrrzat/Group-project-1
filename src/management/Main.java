@@ -9,7 +9,7 @@ import repositories.interfaces.*;
 
 public class Main {
     public static void main(String[] args) {
-        IDB db = new PostgresDB("jdbc:postgresql://localhost:5432","postgres","Kundyz2007","postgres");
+        IDB db = new PostgresDB("jdbc:postgresql://localhost:5432","postgres","123456789","dev_store");
 
         IUserRepository repo = new UserRepository(db);
         IUserController controller = new UserController(repo);
@@ -32,6 +32,7 @@ public class Main {
 
         IReviewRepository reviewRepo = new ReviewRepository(db);
         IReviewController reviewController = new ReviewController(reviewRepo);
+
 
 
 
