@@ -135,6 +135,6 @@ public class UserRepository implements IUserRepository {
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
-        return "USER"; // Default role if not found
+        return "USER";
     }
 }

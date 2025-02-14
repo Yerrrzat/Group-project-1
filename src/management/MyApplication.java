@@ -17,7 +17,8 @@ public class MyApplication {
     private final IReviewController reviewController;
     private final Scanner scanner = new Scanner(System.in);
 
-    private static final String EMPLOYEE_PASSWORD = "0123456789";
+
+    private static final String ADMIN_PASSWORD = "0123456789";
     private int currentUserId = -1;
 
 
@@ -31,6 +32,7 @@ public class MyApplication {
         this.orderItemController = orderItemController;
         this.reviewController = reviewController;
     }
+
 
     public void start() {
         while (true) {
@@ -53,8 +55,8 @@ public class MyApplication {
 
     private void mainMenu() {
         System.out.println("\nWelcome to Device Store 'The Algorithm Avengers' ");
-        System.out.println("1. For Users");
-        System.out.println("2. For Employees");
+        System.out.println("1. Customer");
+        System.out.println("2. Admin");
         System.out.println("0. Exit");
         System.out.print("Enter option: ");
     }
@@ -193,7 +195,7 @@ public class MyApplication {
 
     private void makeOrder() {
         if (currentUserId == -1) {
-            System.out.println(" You must be logged in to place an order.");
+            System.out.println("You must be logged in to place an order.");
             return;
         }
 
@@ -220,7 +222,6 @@ public class MyApplication {
         scanner.nextLine();
 
         PaymentContext paymentContext = new PaymentContext();
-
         Map<Integer, Supplier<PaymentStrategy>> paymentStrategies = Map.of(
                 1, CashPayment::new,
                 2, CreditCardPayment::new,
@@ -235,7 +236,7 @@ public class MyApplication {
         System.out.print("Confirm purchase (yes/no): ");
         String confirm = scanner.nextLine();
         if (!confirm.equalsIgnoreCase("yes")) {
-            System.out.println(" Purchase canceled.");
+            System.out.println("Purchase canceled.");
             return;
         }
 
@@ -244,10 +245,18 @@ public class MyApplication {
 
         paymentContext.executePayment(devicePrice);
 
-        System.out.println(" Purchase successful! Thank you.");
+        System.out.println("Purchase successful! Thank you.");
 
-        createReviewMenu(deviceId);
+        System.out.print("Would you like to leave a review for this product? (yes/no): ");
+        String reviewResponse = scanner.nextLine();
+
+        if (reviewResponse.equalsIgnoreCase("yes")) {
+            createReviewMenu(deviceId);
+        } else {
+            System.out.println("Thank you for your purchase!");
+        }
     }
+
 
 
 
@@ -287,13 +296,13 @@ public class MyApplication {
     private void employeeSection() {
         System.out.print("Enter company password: ");
         String password = scanner.nextLine();
-        if (!password.equals(EMPLOYEE_PASSWORD)) {
+        if (!password.equals(ADMIN_PASSWORD)) {
             System.out.println("Incorrect password.");
             return;
         }
 
         while (true) {
-            System.out.println("\nEmployee Panel");
+            System.out.println("\nAdmin Panel");
             System.out.println("1. Get all users");
             System.out.println("2. Get user by ID");
             System.out.println("3. Get all devices");
@@ -309,7 +318,7 @@ public class MyApplication {
             scanner.nextLine();
 
 
-            Map<Integer, Runnable> employeeActions = Map.of(
+            Map<Integer, Runnable> adminActions = Map.of(
                     1, () -> System.out.println(userController.getAllUsers()),
                     2, this::getUserByIdMenu,
                     3, () -> System.out.println(deviceController.getAllDevices()),
@@ -326,7 +335,7 @@ public class MyApplication {
             );
 
 
-            employeeActions.getOrDefault(option, () -> System.out.println("Invalid option. Try again.")).run();
+            adminActions.getOrDefault(option, () -> System.out.println("Invalid option. Try again.")).run();
 
             if (option == 0) {
                 return;

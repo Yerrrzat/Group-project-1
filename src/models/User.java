@@ -9,6 +9,8 @@ public class User {
     private String address;
     private String phone;
 
+
+
     public User(String name, String surname, String email, String password, String address, String phone) {
         setName(name);
         setSurname(surname);
@@ -18,7 +20,7 @@ public class User {
         setPhone(phone);
 
     }
-    public User() {
+    public User(int id, String name, String surname, String email, String password, String address, String phone, String admin) {
 
     }
     public User(int id,String name, String surname, String email, String password, String address, String phone) {
@@ -71,6 +73,15 @@ public class User {
         this.phone = phone;
 
     }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    protected String role;
 
 
     @Override
@@ -83,6 +94,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 
