@@ -120,7 +120,7 @@ public class MyApplication {
         }
     }
 
-    private void createReviewMenu() {
+    private void createReviewMenu(int deviceId) {
         if (currentUserId == -1) {
             System.out.println("You must be logged in to leave a review.");
             return;
@@ -245,7 +245,10 @@ public class MyApplication {
         paymentContext.executePayment(devicePrice);
 
         System.out.println(" Purchase successful! Thank you.");
+
+        createReviewMenu(deviceId);
     }
+
 
 
     private void deleteUserMenu() {
